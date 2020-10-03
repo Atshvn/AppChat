@@ -1,0 +1,37 @@
+{
+  "name": "appchatatsh",
+  "version": "1.0.0",
+  "description": "Testtttttttt nhoooo",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Atshvn/AppChat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Atshvn/AppChat/issues"
+  },
+  "homepage": "https://github.com/Atshvn/AppChat#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "dependable": "^1.1.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.0.1",
+    "express-session": "^1.17.1",
+    "express-validator": "^6.6.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.7",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  }
+}
