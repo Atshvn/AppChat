@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     fullname: {type: String, unique: true, default: ''},
     email: {type: String, unique: true},
     password: {type: String, default: ''},
+    phone: {type: Number, default: ''},
     userImage: {type: String, default: 'defaultPic.png'},
     facebook: {type: String, default: ''},
     fbTokens: Array,

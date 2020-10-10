@@ -14,7 +14,7 @@ const container = require('./container');
 
 
 
-container.resolve(function (users, _) {
+container.resolve(function (users, _, admin, home) {
 
     mongoose.connect('mongodb://localhost/AppChatAtsh', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     const app = SetupExpress();
@@ -27,6 +27,8 @@ container.resolve(function (users, _) {
         //Setup router
         const router = require('express-promise-router')();
         users.SetRouting(router);
+        admin.SetRouting(router);
+        home.SetRouting(router);
         app.use(router);
 
 

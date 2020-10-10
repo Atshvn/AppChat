@@ -33,6 +33,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.username = req.body.username;
         newUser.fullname = req.body.username;
         newUser.email = req.body.email;
+        newUser.phone = req.body.phone;
         newUser.password = newUser.encryptPassword(req.body.password);
 
         newUser.save((err) => {
