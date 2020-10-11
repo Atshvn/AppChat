@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     username: {type: String, unique: true, default: ''},
     fullname: {type: String, unique: true, default: ''},
     email: {type: String, unique: true},
+    verify: {type: Boolean, default: false},
     password: {type: String, default: ''},
     phone: {type: Number, default: ''},
     userImage: {type: String, default: 'defaultPic.png'},

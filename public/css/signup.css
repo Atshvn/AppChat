@@ -258,7 +258,6 @@ body {
 .signup-form, .signup-image, .signin-form, .signin-image {
   width: 50%;
   overflow: hidden; }
-
 .signup-image {
   margin: 0 55px; }
 
@@ -305,7 +304,35 @@ figure {
   margin-left: 75px;
   margin-right: 75px;
   padding-left: 34px; }
+.xx{
+ padding: 70px;
+padding-top: 30px;
+}
+.center{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+}
+.titlee{
+font-size: 50px;
+text-align: center;
+}
+.continue{
+  text-decoration: none;
+  padding: 15px;
+  max-width: 100%;
+  display: block;
+  font-size: large;
+  margin-bottom: 15px;
+  background-color:  #4aa1f3;
+  color: white;
+  border-radius: 10px;
 
+}
 .register-form {
   width: 100%; }
 

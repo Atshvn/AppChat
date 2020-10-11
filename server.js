@@ -8,15 +8,13 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
+
 const port= 3000;
 
 const container = require('./container');
-
-
-
 container.resolve(function (users, _, admin, home) {
-
-    mongoose.connect('mongodb://localhost/AppChatAtsh', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+    mongoose.connect('mongodb+srv://altp:altp@cluster0.7rr7u.mongodb.net/ALTPDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     const app = SetupExpress();
     function SetupExpress() {
         const app = express();

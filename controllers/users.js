@@ -1,31 +1,52 @@
 'use strict';
+const nodemailer = require('nodemailer');
 
 module.exports = function (_, passport, User) {
 
     return {
         SetRouting: function (router) {
             router.get('/', this.indexPage);
+            router.get('/login', this.loginEmail);
+            router.get('/loginphone', this.loginPhone);
             router.get('/signup', this.getSignUp);
+            router.get('/signupphone', this.getSignUpPhone);
             router.get('/home', this.homePage);
             router.get('/auth/facebook', this.getFacebookLogin);
             router.get('/auth/facebook/callback', this.facebookLogin);
             router.get('/auth/google', this.getGoogleLogin);
             router.get('/auth/google/callback', this.googleLogin);
 
-            router.post('/', User.LoginValidation, this.postLogin);
+            router.post('/login', User.LoginValidation, this.postLogin);
             router.post('/signup', User.SignUpValidation, this.postSignUp);
+            router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
+            router.post('/signupphone', User.SignUpValidationPhone, this.postSignUpPhone);
         },
 
         indexPage: function (req, res) {
-            const errors = req.flash('error');
-            return res.render('index', { title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+
+            return res.render('verify');
         },
+        loginEmail: function(req, res){
+            const errors = req.flash('error');
+            return res.render('index',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        }
+        ,
+        loginPhone: function(req, res){
+            const errors = req.flash('error');
+            return res.render('loginphone',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        }
+        ,
         homePage: function (req, res) {
             return res.render('home');
         },
         postLogin: passport.authenticate('local.login', {
             successRedirect: '/home',
-            failureRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: true
+        }),
+        postLoginPhone: passport.authenticate('local.login.phone', {
+            successRedirect: '/home',
+            failureRedirect: '/loginphone',
             failureFlash: true
         }),
 
@@ -33,10 +54,19 @@ module.exports = function (_, passport, User) {
             const errors = req.flash('error');
             return res.render('signup', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0 });
         },
+        getSignUpPhone: function (req, res) {
+            const errors = req.flash('error');
+            return res.render('signupphone', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0 });
+        },
 
         postSignUp: passport.authenticate('local.signup', {
             successRedirect: '/home',
             failureRedirect: '/signup',
+            failureFlash: true
+        }),
+        postSignUpPhone: passport.authenticate('local.signup.phone', {
+            successRedirect: '/home',
+            failureRedirect: '/signupphone',
             failureFlash: true
         }),
 

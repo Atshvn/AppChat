@@ -42,6 +42,33 @@ passport.use('local.signup', new LocalStrategy({
     });
 }));
 
+passport.use('local.signup.phone', new LocalStrategy({
+    usernameField: 'phone',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, phone, password, done) => {
+
+    User.findOne({ 'phone': phone }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+
+        if (user) {
+            return done(null, false, req.flash('error', 'User with phone already exist'));
+        }
+
+        const newUser = new User();
+        newUser.username = req.body.username;
+        newUser.fullname = req.body.username;
+        newUser.email = req.body.email;
+        newUser.phone = req.body.phone;
+        newUser.password = newUser.encryptPassword(req.body.password);
+
+        newUser.save((err) => {
+            done(null, newUser);
+        });
+    });
+}));
 passport.use('local.login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
@@ -59,6 +86,25 @@ passport.use('local.login', new LocalStrategy({
             return done(null, false, req.flash('error', messages));
         }
 
+        return done(null, user);
+    });
+}));
+passport.use('local.login.phone', new LocalStrategy({
+    usernameField: 'phone',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, phone, password, done) => {
+
+    User.findOne({ 'phone': phone }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+
+        const messages = [];
+        if (!user || !user.validUserPassword(password)) {
+            messages.push('Phone Does Not Exist or Password is Invalid');
+            return done(null, false, req.flash('error', messages));
+        }
         return done(null, user);
     });
 }));

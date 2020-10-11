@@ -4,7 +4,7 @@ const group = mongoose.Schema({
     name: { type: String, default:''},
     title: { type: String, default: ''},
     image : { type: String, default:'default.png'},
-    menber: [{ 
+    member: [{ 
         username: {type: String, default: ''},
         email: { type: String, default: ''},
     }]
