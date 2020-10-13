@@ -12,7 +12,11 @@ const userSchema = mongoose.Schema({
     userImage: {type: String, default: 'defaultPic.png'},
     facebook: {type: String, default: ''},
     fbTokens: Array,
-    google: {type: String, default: ''}
+    google: {type: String, default: ''},
+    address:{type: String, default: ''},
+    gender:{type: String, default: ''},
+    aboutme:{type: String, default: ''},
+
 });
 
 userSchema.methods.encryptPassword = function(password){

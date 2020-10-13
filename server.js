@@ -13,7 +13,7 @@ const nodemailer = require('nodemailer');
 const port= 3000;
 
 const container = require('./container');
-container.resolve(function (users, _, admin, home) {
+container.resolve(function (users, _, admin, home, profile) {
     mongoose.connect('mongodb+srv://altp:altp@cluster0.7rr7u.mongodb.net/ALTPDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
     const app = SetupExpress();
     function SetupExpress() {
@@ -27,6 +27,7 @@ container.resolve(function (users, _, admin, home) {
         users.SetRouting(router);
         admin.SetRouting(router);
         home.SetRouting(router);
+        profile.SetRouting(router);
         app.use(router);
 
 

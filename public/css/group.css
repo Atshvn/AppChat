@@ -25,7 +25,7 @@ h3 {
 }
 
 .navbar{
-    background: #4aa1f3;
+    background: #6ad2eb ;
 }
 
 .navbar-default .navbar-brand {
@@ -38,23 +38,23 @@ h3 {
 
 .navbar-brand:hover{
     color: #fff !important;
-    background-color: #4aa1f3;
+    background-color: #6ad2eb ;
 }
 
 .navbar-default .navbar-nav > li > a {
     color: #fff !important;
-    background-color: #4aa1f3;
+    background-color: #6ad2eb ;
     font-size: 16px;
     font-weight: bold;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
     color: #fff !important;
-    background-color: #4aa1f3;
+    background-color: #6ad2eb ;
 }
 
 .dropdown-toggle:active, .open .dropdown-toggle {
-    background:#4aa1f3 !important; 
+    background:#6ad2eb  !important; 
     border: none !important;
     color:#000 !important;
 }
@@ -68,7 +68,7 @@ h3 {
     border: medium none;
     outline: 0;
     font-size: 17px;
-    color: #4aa1f3;
+    color: #6ad2eb ;
 }
 
 .new_message_head button:focus {
@@ -131,7 +131,7 @@ h3 {
 .chat-name{
     font-size: 17px;
     font-weight: 600;
-    color: #4aa1f3;
+    color: #6ad2eb ;
 }
 
 .message_write {
@@ -277,7 +277,7 @@ member_list li:hover {
 }
 
 .name, .friends, #numOfFriends, .club_name, .club_fans{
-    color: #4aa1f3 !important;
+    color: #6ad2eb  !important;
 }
 
 .bl {
@@ -309,11 +309,11 @@ member_list li:hover {
 }
 
 .modal-title{
-    color: #4aa1f3;
+    color: #6ad2eb ;
 }
 
 #nameLink, .btn_close{
-    background-color: #4aa1f3 !important;
+    background-color: #6ad2eb  !important;
     color: white !important;
 }
 
@@ -336,7 +336,7 @@ member_list li:hover {
 #val{
     cursor: pointer;
     text-decoration: none;
-    color: #4aa1f3;
+    color: #6ad2eb ;
 }
 
 .nav-label-icon {
@@ -389,7 +389,7 @@ member_list li:hover {
 }
 
 .drop-accept {
-    background: #4aa1f3 !important;
+    background: #6ad2eb  !important;
     border: #3bb5ec;
     color: white !important;
     text-shadow: none;

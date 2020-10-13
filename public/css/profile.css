@@ -1,0 +1,96 @@
+html {
+  height: 100vh;
+}
+body {
+  height: 100%;
+}
+.app {
+  height: 100%;
+  width: 100%;
+  background-color: #f8f8f9;
+  font-family: "Montserrat", sans-serif;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+h1{
+  margin: 0;
+}
+.title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.card-img-header {
+  height: 100px !important;
+  object-fit: cover;
+}
+.image-cover{
+  display: inline-block;
+  position: relative;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-top: -30%;
+}
+.avatar {
+  width: auto;
+  height: 100%;
+  margin-left: -10px;
+}
+
+.name-auth {
+  font-size: larger !important;
+  margin-bottom: 1.15rem !important;
+  font-weight: 600 !important;
+}
+p {
+  margin-bottom: 0 !important;
+}
+
+.btn-v-p {
+  background-color: #6ad2eb !important;
+  color: white;
+  margin-top: 1.18rem;
+  width: 100%;
+}
+.div-r {
+  border-right: 0.7px solid #8c8c8f50;
+}
+.sub-info-select {
+  width: 15%;
+  padding: 10px;
+  font-weight: 600;
+  color: #6ad2eb;
+  text-align: center;
+  border-bottom: 3px solid #6ad2eb;
+}
+.sub-info {
+  width: 15%;
+  padding: 10px;
+  font-weight: 600;
+  color: black;
+}
+.btn-s{
+    background-color: #35CD3A;
+    color: white;
+}
+.btn-r{
+    background-color: #F3545D;
+    color: white;
+}
+input{
+    height: 50px !important;
+}
+.icon-sm{
+    width: 30px;
+    height: 30px;
+    margin-right: 1.14rem;
+}
+.form-control:focus {border-color:rgba(100,100,100,1)!important;
+  -webkit-box-shadow: none!important;
+      -moz-box-shadow: none!important;
+      box-shadow: none!important;
+  }

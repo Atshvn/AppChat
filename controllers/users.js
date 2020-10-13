@@ -11,7 +11,6 @@ module.exports = function (_, passport, User) {
             router.get('/signup', this.getSignUp);
             // router.get('/signupphone', this.getSignUpPhone);
             router.get('/logout', this.logout)
-            router.get('/home', this.homePage);
             router.get('/auth/facebook', this.getFacebookLogin);
             router.get('/auth/facebook/callback', this.facebookLogin);
             router.get('/auth/google', this.getGoogleLogin);
@@ -22,7 +21,6 @@ module.exports = function (_, passport, User) {
             router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
             // router.post('/signupphone', User.SignUpValidationPhone, this.postSignUpPhone);
         },
-
         indexPage: function (req, res) {
 
             return res.render('verify');
@@ -37,9 +35,6 @@ module.exports = function (_, passport, User) {
             return res.render('loginphone',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
         }
         ,
-        homePage: function (req, res) {
-            return res.render('home');
-        },
         postLogin: passport.authenticate('local.login', {
             successRedirect: '/home',
             failureRedirect: '/login',

@@ -2,12 +2,13 @@
 // const path = require('path');
 // const fs = require('fs');
 const User = require('../models/user.model');
-module.exports = function (formidable, Group, aws) {
+module.exports = function ( aws, formidable, Group) {
 
     return {
         SetRouting: function (router) {
             router.get('/dashboard', this.adminPage);
             router.get('/getAllUser', this.getAllUser);
+
             router.post('/uploadFile', aws.Upload.any(), this.uploadFile); //
             router.post('/dashboard', this.adminPostPage);
             router.post('/postUser', this.postUser);
