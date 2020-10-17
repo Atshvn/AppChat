@@ -60,7 +60,7 @@ $(document).ready(function(){
                 success: function(){
                     setTimeout(function(){
                         window.location.reload();
-                    }, 100);
+                    }, 0);
                 }
             })
         } else {

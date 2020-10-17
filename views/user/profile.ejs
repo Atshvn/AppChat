@@ -15,8 +15,9 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/style.css">
+
 
 </head>
 
@@ -77,14 +78,14 @@
                 <div class="app">
                     <div class="pt-5">
                         <div class="row pl-5">
-                            <div class="col-3 pl-5">
+                            <div class="col-3">
                                 <div class="card style=" box-shadow: 0 8px 6px -6px black;"">
                                     <img src="https://chatappaltp.s3.amazonaws.com/lan.jpg" class="card-img-header"  alt="image" />
                                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
                                       <div class="image-cover">
                                         <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>" id="show_img" alt="au" class="img-responsive avatar mx-auto" />
                                       </div>
-                                        <p class="name-auth"><%= user.fullname %></p>
+                                        <p class="name-auth pt-3"><%= user.fullname %></p>
                                         <p class="">@<%= user.username %></p>
 
                                         <a href="/settings/profile" style="text-decoration: none; color: white;" class="btn btn-v-p"><div >Profile</div></a>

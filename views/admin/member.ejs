@@ -1,3 +1,4 @@
+</html>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +18,8 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+
 
 </head>
 
@@ -27,10 +29,10 @@
 
         <!-- Sidebar -->
         <div class="bg-light " id="sidebar-wrapper" style=" border-left:none !important;">
-            <div style="width: 100px !important; height: 64px !important; background-color: #6ad2eb ;"></div>
+            <div style="width: 100px !important; height: 64px !important; background-color: #36373b ;"></div>
             <div class="list-group list-group-flush" style="width: 100px !important; margin-top: 30px;">
-                <a href="/home" class="list-group-item list-group-item-action bg-light">Group</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Message</a>
+                <a href="/dashboard" class="list-group-item list-group-item-action bg-light">Group</a>
+                <a href="/member" class="list-group-item list-group-item-action bg-light">Member</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Friend</a>
                 <a href="/settings/profile" class="list-group-item list-group-item-action bg-light">Profile</a>
 
@@ -42,8 +44,10 @@
         <div id="page-content-wrapper">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
-                style="background-color:#6ad2eb  !important; color: white;">
-                <a href="/home" style="text-decoration: none; color: white; display: block;"><h1 class="text-center logo m-0">A L T P</h1></a>
+                style="background-color:#36373b  !important; color: white;">
+                <a href="/dashboard" style="text-decoration: none; color: white; display: block;">
+                    <h1 class="text-center logo m-0">admin A L T P</h1>
+                </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,15 +58,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link text-white" href="#">Link</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @<%= user.username %>
+                                Dropdown
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="/settings/profile">Profile</a>
@@ -73,7 +77,6 @@
                     </ul>
                 </div>
             </nav>
-
             <div class="container-fluid">
                 <div class="col-md-12 pt-4 pb-4">
                     <form action="" method="post">
@@ -96,18 +99,27 @@
                         <div class="category-list">
                             <div class="row">
                                 <% _.forEach(val, function(val2){ %>
-                                <form action="#" method="post" id="add-fav">
-                                    <div class="item col-md-3">
-                                       <a style="text-decoration: none; color: black;" href="/groupchat/<%= val2.name %>">
-                                        <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" src="https://chatappaltp.s3.amazonaws.com/<%= val2.image %>" alt="Card image cap">
-                                            <div class="card-body">
-                                              <h5 class="card-title"><%= val2.name %></h5>
-                                              <p class="card-text"><%= val2.title %></p>
-                                              <a href="#" class="btn mt-3" style="background-color: #6ad2eb; color: white;">Add Group</a>
+                                <form action="#" method="post" id="add-fav" >
+                                    <div class="item col-md-4">
+                                        <a style="text-decoration: none; color: black;"
+                                            class="d-flex justify-content-center pt-3"
+                                            href="/memberd/<%= val2.username %>">
+                                            <div class="card" style="width: 18rem;">
+                                                <img class="card-img-top" id="avatar"
+                                                    src="https://chatappaltp.s3.amazonaws.com/<%= val2.userImage %>"
+                                                    alt="Card image cap">
+                                                <div class="card-body ">
+                                                    <h5 class="card-title ">@<%= val2.username %></h5>
+                                                    <div class="d-flex ">
+                                                        <a href="/detailprofile" class="btn mt-3 mr-5 ml-4"
+                                                            style="background-color: #36373b; color: white;">Chi
+                                                            tiết</a>
+                                                        <a href="/member/<%= val2.id %>" class="btn mt-3"
+                                                            style="background-color: #36373b; color: white;">Xóa</a>
+                                                    </div>
+                                                </div>
                                             </div>
-                                          </div>
-                                       </a>
+                                        </a>
                                     </div>
                                 </form>
                                 <% }) %>
@@ -116,6 +128,7 @@
                         <% }) %>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -126,14 +139,22 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Menu Toggle Script -->
+    <script src="/js/upload.js"></script>
     <!-- <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+        $('#del-btn').on('click', function() {
+           var id = $(this).attr('data-id');
+           $.ajax({
+              method: "POST",
+              url: "/member/delete",
+              data: {"_id": id},
+              success: function(result) {
+                setTimeout(function(){
+                        window.location.reload();
+                    }, 0);
+              }
+           })
         });
-    </script> -->
+     </script> -->
 
 </body>
 

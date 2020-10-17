@@ -1,5 +1,5 @@
 
-
+const User = require('../models/user.model');
 
 module.exports = function (async, Group, _) {
     return {
@@ -22,7 +22,7 @@ module.exports = function (async, Group, _) {
                 {
                     dataChunk.push(res1.slice(i, i + chunksize));
                 }
-                res.render('home', { title: 'ALTP | Home', data: dataChunk });
+                res.render('home', { title: 'ALTP | Home', data: dataChunk , user: req.user});
             })
         }
 
