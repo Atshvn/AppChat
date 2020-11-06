@@ -64,7 +64,7 @@ module.exports = function (aws, formidable, Group, async) {
                 for (let i = 0; i < res1.length; i += chunksize) {
                     dataChunk.push(res1.slice(i, i + chunksize));
                 }
-                res.render('admin/member', { title: 'ALTP | Member', data: dataChunk });
+                res.render('admin/member', { title: 'ALTP | Member', data: dataChunk,  user: req.user });
             })
         },
         postUser: (req, res) => {
@@ -89,10 +89,8 @@ module.exports = function (aws, formidable, Group, async) {
                 '_id': req.params.id
             }, function(err, user) {
         
-                if (err) throw err;
-        
+                if (err) throw err;       
                 console.log("Success");
-        
             });
         
             res.redirect('/member');

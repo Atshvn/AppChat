@@ -1,55 +1,50 @@
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/home">Footballkik</a>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
+    style="background-image: linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%) !important; color: #868f97;">
+    <a href="/home" style="text-decoration: none; color:white; display: block;font-weight: bold;">
+        <h1 class="text-center logo m-0">A L T P</h1>
+    </a>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right" id="reload">
-        <li><a href="/latest-football-news">Football News</a></li>
-       
-        <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon fa fa-bell nav-glyphicon"></span><b class="caret"></b>
-                     <% if(data.totalRequest > 0) {%>
-                         <span class="label label-primary nav-label-icon"><%= data.request.length %></span>
-                     <% } else { %>
-                         <span class="label label-primary nav-label-icon" style="display:none"></span>
-                     <% } %>
-                      
-            </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-            <ul class="dropdown-menu">
-                <li>
-                    <div class="navbar-login" id="requestBar">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="dropdown-tag">
-                                    <h3 class="text-center dropdown-tag-head" >
-                                        Friend Requests
-                                    </h3>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-right: 150px;">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0" id="reload" >
+            <li class="dropdown">             
+                <a  style="color:#868f97; outline: none !important; border: none !important;" class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+                    <span class="glyphicon fa fa-user-plus nav-glyphicon" style="border-radius: 50%; color: white !important;"></span>
+                    <% if(data.totalRequest > 0){ %>
+                        <span class="label label-primary nav-label-icon" style="color: white;"><%= data.request.length %></span>
+                    <% } else {%>
+                        <span class="label label-primary nav-label-icon" style="color: white; display: none;">2</span>
+                        <% } %>
+                  </a>
+                <ul class="dropdown-menu drop-res" style="left: -300px;">
+                    
+                    <li > 
+                        <div class="navbar-login" id="requestBar">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="dropdown-tag">
+                                        <h3 class="text-center dropdown-tag-head">
+                                            Friend Requests
+                                        </h3>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-12">
-                           <% if(data.request.length > 0) {%>
-                           <% _.forEach(data.request, function(val) { %>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <p class="text-center">
-                                        <img src="https://footballkik.s3.amazonaws.com/<%= val.userId.userImage %>" class="img-circle img-responsive dropdown-img" />
-                                    </p>
-                                </div>
-                                <div class="col-md-9 pleft-0">
-                                    <div class="row">
-                                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <% if(data.request.length > 0){ %>
+                                    <% _.forEach(data.request, function(val) { %>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p class="text-center">
+                                            <img src="https://chatappaltp.s3.amazonaws.com/<%= val.userId.userImage %>""
+                                                class="rounded-circle img-responsive dropdown-img" />
+                                        </p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
                                             <div class="col-md-12">
                                                 <p class="text-left">
                                                     <strong id=""><%= val.username %></strong>
@@ -57,83 +52,58 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    
+                                                    <div class="col-m-6">
                                                         <input type="hidden" name="senderId" id="senderId" value="<%= val.userId._id %>">
-                                                        <input type="hidden" name="senderName" id="senderName" value="<%= val.username %>">
-                                                        <button type="submit" name="accept" id="accept_friend" class="btn btn-default drop-accept accept"><i class="fa fa-check" aria-hidden="true"></i> Accept</button>
+                                                    <input type="hidden" name="senderName" id="senderName" value="<%= val.username %>">
+                                                    <input type="hidden" name="senderImg" id="senderImg" value="<%= val.userId.userImage %>">
+                                                        <button type="submit" name="accept" id="accept_friend"
+                                                        class="btn btn-default drop-accept accept"><i
+                                                            class="fa fa-check" aria-hidden="true"></i>Accept</button>
                                                     </div>
-                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                    <div class="col-m-6">
                                                         <input type="hidden" name="user_Id" id="user_Id" value="<%= val.userId._id %>">
-                                                        <button type="submit" name="cancel" class="btn drop-cancel remove" id="cancel_friend">
+                                                   
+                                                        <button type="submit" name="cancel"
+                                                        class="btn drop-cancel remove" id="cancel_friend">
                                                         <i class="fa fa-times" aria-hidden="true"></i> Cancel
-                                                        </button>
+                                                    </button>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
+                                <hr>
+                                <% }) %>
+                                <% } else { %>
+                                    <div class="text-center"> No Friend Request</div>
+                                    <% } %>
                             </div>
-                            <hr />
-                            <% }) %>
-                            <% } else { %>
-                                <p class="text-center">No Friend Request</p>
-                            <% } %>
+
+
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-            </ul>
-        </li>
-        
-        <li>
-            <%- include message.ejs %>
-        </li>
-        
-        
-        <li><a href="/members">Members</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.username %> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/settings/profile"><span class="fa fa-user"> Profile</span></a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
-          </ul>
-        </li>
-      </ul>
+                </ul>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" style="font-weight: bold;" aria-expanded="false">
+                    <%= user.username %>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item text-center" href="/settings/profile">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item " href="/logout"><i class="fa fa-sign-out pr-2"></i>Log Out</a>
+                </div>
+            </li>
+        </ul>
     </div>
-  </div>
 </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

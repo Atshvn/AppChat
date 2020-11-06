@@ -2,7 +2,7 @@
 body {
     font-size: 16px;
     line-height: 1.42857143;
-    color: #555;
+    color: #81FFEF;
     background: #eeeeee;
 }
 #custom-search-input {
@@ -10,7 +10,14 @@ body {
     margin: 0;
     padding: 10px;
 }
+#avatar {
 
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
 #custom-search-input .search-query {
     background: #fff none repeat scroll 0 0 !important;
     border-radius: 4px;
@@ -24,7 +31,7 @@ body {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: 0 none;
     border-radius: 3px;
-    color: #666666;
+    color: #81FFEF;
     left: auto;
     margin-bottom: 0;
     margin-top: 7px;
@@ -37,7 +44,7 @@ body {
 .card {
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 4px;
-    color: #444444;
+    color: #81FFEF;
 }
 
 
@@ -45,10 +52,6 @@ body {
     background-color: rgba(0, 0, 0, 0);
     box-shadow: none;
     padding: 10px 20px 20px;
-}
-.nav-link {
-    color: white !important;
-    font-size: large;
 }
 
 .new-search-bar {
@@ -61,7 +64,7 @@ body {
 }
 
 .input-btn {
-    background:#8EEFE9 ;
+    background: #81FFEF ;
     border-top-right-radius: 25px !important;
     border-bottom-right-radius: 25px !important;
     padding-left: 23px;
@@ -80,54 +83,7 @@ body {
     width: 50%;
     margin: 0 auto;
 }
-.nav-label-icon {
-    top: -5px;
-    position: relative;
-    background: red;
-    padding: 2px 4px;
-    border-radius: 50%;
-    font-size: 11px;
-}
-.dropdown-tag-head {
-    color: white;
-    padding-top: 7px;
-    margin-top: 0px;
-    font-size: 17px;
-}
-.dropdown-tag {
-    background: #81FFEF;
-    color: white;
-    padding: 4px;
-    margin-bottom: 15px;
-    width: 100%;
-}
-#add-fav {
-margin: 0 10px 0 15px !important;
-}
 
-.drop-accept {
-    background: #81FFEF !important;
-    border: #81FFEF;
-    color: white !important;
-    text-shadow: none;
-    margin: 0 10px 0 20px ;
-}
-.drop-cancel
-{
-    background-color: #e8e6e7;
-}
-.dropdown-img{
-    width: 40px;
-    height: 40px;
-}
-.dropdown-menu {
-    margin-top: 10px;
-    padding-top: 0px !important;
-  
-}
-.drop-res {
-    width: 350px;
-}
 
 
 

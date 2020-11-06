@@ -1,7 +1,9 @@
 'use strict';
 const nodemailer = require('nodemailer');
 
-module.exports = function (_, passport, User) {
+
+
+module.exports = function (_, passport, User, async) {
 
     return {
         SetRouting: function (router) {
@@ -9,6 +11,7 @@ module.exports = function (_, passport, User) {
             router.get('/login', this.loginEmail);
             router.get('/loginphone', this.loginPhone);
             router.get('/signup', this.getSignUp);
+          
             // router.get('/signupphone', this.getSignUpPhone);
             router.get('/logout', this.logout)
             router.get('/auth/facebook', this.getFacebookLogin);
@@ -89,7 +92,8 @@ module.exports = function (_, passport, User) {
             req.session.destroy((err) => {
                res.redirect('/');
             });
-        }
+        },
+       
     }
 
 }

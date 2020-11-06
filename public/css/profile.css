@@ -52,7 +52,7 @@ p {
 }
 
 .btn-v-p {
-  background-color: #6ad2eb !important;
+  background-color: #81FFEF !important;
   color: white;
   margin-top: 1.18rem;
   width: 100%;
@@ -64,9 +64,9 @@ p {
   width: 15%;
   padding: 10px;
   font-weight: 600;
-  color: #6ad2eb;
+  color: #81FFEF;
   text-align: center;
-  border-bottom: 3px solid #6ad2eb;
+  border-bottom: 3px solid #81FFEF;
 }
 .sub-info {
   width: 15%;

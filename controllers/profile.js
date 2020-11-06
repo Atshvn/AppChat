@@ -10,9 +10,28 @@ module.exports = function (aws, formidable, async) {
         },
 
         getProfilePage: function (req, res) {
-            res.render('user/profile', { title: 'Profile | ALTP', user: req.user });
-        }
-        ,
+            async.parallel([
+                function (callback) {
+                    User.find({'_id': req.user._id }, (err, result) => {
+                        callback(err, result);
+                    })
+                },
+                function (callback) {
+                    User.findOne({ 'username': req.user.username })
+                        .populate('request.userId')
+
+                        .exec((err, result) => {
+                            callback(err, result);
+                        })
+                }
+            ], (err, results) => {
+                const res2 = results[1];
+
+               //res.send(res3)
+               res.render('user/profile', { title: 'Profile | ALTP', user: req.user, data: res2 });
+            })
+            
+        },
         userUpload: function (req, res) {
             const form = new formidable.IncomingForm();
 

@@ -15,8 +15,9 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/profile.css">
+
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile.css">
 
 
 </head>
@@ -25,54 +26,13 @@
 
     <div class="d-flex" id="wrapper">
 
-        <!-- Sidebar -->
-        <div class="bg-light " id="sidebar-wrapper" style=" border-left:none !important;">
-            <div style="width: 100px !important; height: 64px !important; background-color: #6ad2eb ;"></div>
-            <div class="list-group list-group-flush" style="width: 100px !important; margin-top: 30px;">
-                <a href="/home" class="list-group-item list-group-item-action bg-light">Group</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Message</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Friend</a>
-                <a href="/settings/profile" class="list-group-item list-group-item-action bg-light">Profile</a>
-
-            </div>
-        </div>
+        <%- include('../partials/sidebar.ejs') %>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
-            style="background-color:#6ad2eb  !important; color: white;">
-            <a href="/home" style="text-decoration: none; color: white; display: block;"><h1 class="text-center logo m-0">A L T P</h1></a>
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @<%= user.username %>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/settings/profile">Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Log Out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+            <%- include('../partials/navbar.ejs') %>
 
             <div class="container-fuild">
                 <div class="app">
@@ -80,15 +40,20 @@
                         <div class="row pl-5">
                             <div class="col-3">
                                 <div class="card style=" box-shadow: 0 8px 6px -6px black;"">
-                                    <img src="https://chatappaltp.s3.amazonaws.com/lan.jpg" class="card-img-header"  alt="image" />
+                                    <img src="https://chatappaltp.s3.amazonaws.com/lan.jpg" class="card-img-header"
+                                        alt="image" />
                                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                                      <div class="image-cover">
-                                        <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>" id="show_img" alt="au" class="img-responsive avatar mx-auto" />
-                                      </div>
+                                        <div class="image-cover">
+                                            <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>"
+                                                id="show_img" alt="au" class="img-responsive avatar mx-auto" />
+                                        </div>
                                         <p class="name-auth pt-3"><%= user.fullname %></p>
                                         <p class="">@<%= user.username %></p>
 
-                                        <a href="/settings/profile" style="text-decoration: none; color: white;" class="btn btn-v-p"><div >Profile</div></a>
+                                        <a href="/settings/profile" style="text-decoration: none; color: white;"
+                                            class="btn btn-v-p">
+                                            <div>Profile</div>
+                                        </a>
                                         <div class="row w-100 mt-3">
                                             <div
                                                 class="col-4 d-flex flex-column align-items-center justify-content-center div-r">
@@ -132,8 +97,8 @@
                                         <div class="d-flex flex-row">
                                             <div class="pl-4 form-check form-check-inline">
                                                 <label class="form-check-label"
-                                                    style=" color:#868f97 !important; font-size: large;"
-                                                    for="">Gender: </label>
+                                                    style=" color:#868f97 !important; font-size: large;" for="">Gender:
+                                                </label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" value="Male"
@@ -147,21 +112,28 @@
                                             </div>
                                         </div>
                                         <div class="m-3">
-                                            <label style="color:#868f97 !important; font-size: large" class=" pl-2">About Me</label><br>
+                                            <label style="color:#868f97 !important; font-size: large"
+                                                class=" pl-2">About Me</label><br>
                                             <textarea name="aboutme" id="aboutme" class="form-control input-lg" rows="5"
                                                 placeholder="Something..."></textarea>
                                         </div>
                                         <div class="m-3">
                                             <label style=color:#868f97 !important">Add Profile Photo</label><br>
                                             <input type="hidden" id="user-image" value="">
-                                            <button class="btn btn-lg add-btn" style="background-color:#6ad2eb !important; color:white" type="button">Add Avatar</button>
-                                            <input type="file" class="form-control" name="upload" id="add-input" style="display: none">
+                                            <button class="btn btn-lg add-btn"
+                                                style="background-color:#8EEFE9 !important; color:white"
+                                                type="button">Add Avatar</button>
+                                            <input type="file" class="form-control" name="upload" id="add-input"
+                                                style="display: none">
                                             <span id="completed" class="t-s"></span>
                                         </div>
                                         <div class="d-flex m-3">
                                             <div class="ml-auto">
-                                                <input type="submit" id="profile" value="Save Profile" class="btn btn-lg btn-default btn-block save-profile-btn" name="submit" style="background-color:#6ad2eb  !important; color:white !important">
-                                                
+                                                <input type="submit" id="profile" value="Save Profile"
+                                                    class="btn btn-lg btn-default btn-block save-profile-btn"
+                                                    name="submit"
+                                                    style="background-color:#8EEFE9  !important; color:white !important">
+
                                             </div>
                                         </div>
                                     </div>
@@ -180,6 +152,11 @@
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/js/user/profile.js"></script>
+        <script src="/js/upload.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/group/sendrequest.js"></script>
+        <script src="/js/home.js"></script>
+        <script src="/js/global.js"></script>
 
 </body>
 
