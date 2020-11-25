@@ -4,16 +4,12 @@ module.exports = function(async, Group){
     return{
         SetRouting : function(router){
             router.get('/results', this.getResults);
-            router.get('/results/friend', this.getResultsFriend);
-            router.post('/results/friend', this.postResultsFriend);
+           
             router.post('/results', this.postResults);
 
         },
         getResults: function(req, res){
             res.redirect('/home');
-        },
-        getResultsFriend: function(req, res){
-            res.redirect('/friends');
         },
         postResults : function(req, res){
             async.parallel([
@@ -43,36 +39,6 @@ module.exports = function(async, Group){
                 }
                 res.render('results', { title: 'ALTP | Home', chunks: dataChunk , user: req.user,data: res2});
             })
-        },
-        postResultsFriend: function(req, res){
-            async.parallel([
-                function (callback) {
-                    const Regex = new RegExp((req.body.name), 'gi')
-                    User.find({'$or': [{'email': Regex}, {'phone': Regex}]}, (err, result) => {
-                        callback(err, result);
-                    })
-                },
-                function (callback) {
-                    User.findOne({ 'username': req.user.username })
-                        .populate('request.userId')
-
-                        .exec((err, result) => {
-                            callback(err, result);
-                        })
-                }
-            ], (err, results) => {
-                console.log(req.body.name);
-                const res1 = results[0];
-                console.log(results[0]);
-                const res2 = results[1];
-                const dataChunk =[];
-                const chunksize = 4;
-                for(let i =0; i < res1.length; i+= chunksize)
-                {
-                    dataChunk.push(res1.slice(i, i + chunksize));
-                }
-                res.render('resultsFriend', { title: 'ALTP | Home', chunks: dataChunk , user: req.user,data: res2});
-            })
-        },
+        }
     }
 }

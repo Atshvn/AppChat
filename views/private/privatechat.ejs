@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title> Chat | A L T P</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="stylesheet" href="../css/groupchat.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <%- include('../partials/sidebar.ejs') %>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+
+            <%- include('../partials/navbar.ejs') %>
+
+            <div class="container-fluid" style="padding: 0px !important;">
+                <input type="hidden" name="name-user" id="name-user" value="<%= user.username %>">
+                <input type="hidden" name="name-image" id="name-image" value="<%= user.userImage %>">
+                <div class="col-md-12" style="padding: 0px !important;" >
+                    <div class="chat_container" style="height: 725px !important; overflow: hidden;">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-3 mob-clearfix"
+                                style=" padding-right: 0px !important; border: none; background-color: white; border-right:1px solid rgb(203, 206, 209);">
+                                <div class="navbar-login2">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="dropdown-tag2">
+                                                <h1 class="text-center dropdown-tag-head2">Chat</h1>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <% if(chat.length > 0) {%>
+                                        <% _.forEach(chat, function(val) { %>
+                                        <% if(user.username !== val.body.senderName) {%>
+                                        <a style="text-decoration: none; color: #434343;"
+                                            data-value="<%= val.body._id %>" id="messageLink"
+                                            href="/chat/<%= _.lowerCase(val.body.senderName) %>.<%= _.lowerCase(user.username) %>">
+                                            <div class="row"
+                                                style="background-color: #eeeeee; border-radius: 5px; padding: 10px 0; margin: 0 0px 5px 0;">
+                                                <div class="col-md-2">
+                                                    <p class="text-center">
+                                                        <img src="https://chatappaltp.s3.amazonaws.com/<%= val.body.sender.userImage %>"
+                                                            class="rounded-circle img-responsive dropdown-img" />
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-10 pleft-0">
+                                                    <div class="row">
+                                                        <div class="col-md-12 textRow">
+                                                            <div class="col-md-12" id="textRow">
+                                                                <p class="text-left drop-name">
+                                                                    <% if(user.username !== val.body.receiverName) {%>
+                                                                    <strong><%= val.body.receiverName %></strong>
+                                                                    <% } else { %>
+                                                                    <strong><%= val.body.senderName %></strong>
+                                                                    <% } %>
+                                                                </p>
+                                                                <input type="hidden" name="chatId" id="chatId"
+                                                                    value="<%= val.body._id %>">
+                                                                <%= val.body.message %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <% } else if(user.username === val.body.senderName){ %>
+                                        <a style="text-decoration: none; color: #434343;"
+                                            data-value="<%= val.body._id %>" id="messageLink"
+                                            href="/chat/<%= _.lowerCase(val.body.receiverName) %>.<%= _.lowerCase(user.username) %>">
+                                            <div class="row"
+                                                style="background-color: #eeeeee; border-radius: 5px; padding: 10px 0; margin: 0 0px 5px 0;">
+                                                <div class="col-md-2">
+                                                    <p class="text-center">
+                                                        <img src="https://chatappaltp.s3.amazonaws.com/<%= val.body.receiver.userImage %>"
+                                                            class="rounded-circle img-responsive dropdown-img" />
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-10 pleft-0">
+                                                    <div class="row">
+                                                        <div class="col-md-12 textRow">
+                                                            <div class="col-md-12" id="textRow">
+                                                                <p class="text-left drop-name">
+                                                                    <% if(user.username !== val.body.receiverName) {%>
+                                                                    <strong><%= val.body.receiverName %></strong>
+                                                                    <% } else { %>
+                                                                    <strong><%= val.body.senderName %></strong>
+                                                                    <% } %>
+                                                                </p>
+                                                                <input type="hidden" name="chatId" id="chatId"
+                                                                    value="<%= val.body._id %>">
+                                                                <%= val.body.message %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <% } %>
+                                        <% })%>
+                                        <% }else {%>
+                                        <p class="d-flex justify-content-center"> No Chat...</p>
+                                        <% } %>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-5 col-md-6 message_section" style=" border: none;">
+                                <div class="row">
+                                    <div class="new_message_head">
+                                        <div class="pull-left">
+                                            <button id="receiver_name"
+                                                style="font-weight: bold; color: #272343; font-size: 25px;"
+                                                class="club_name"></button>
+                                        </div>
+                                        <div class="pull-right">
+                                        </div>
+                                    </div>
+                                    <div class="chat_area">
+                                        <ul id="messages" class="list-unstyled">
+
+                                            <% if(chats.length > 0) {%>
+                                            <% _.forEach(chats, function(val) { %>
+                                            <% if(name === val.receiver.username.toLowerCase()) {%>
+                                            <li class="left">
+                                                <span class="chat-img1 pull-left">
+                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>"
+                                                        class="rounded-circle" alt="">
+                                                </span>
+                                                <div class="chat-body1">
+                                                    <span class="chat-name"><%= val.senderName %></span>
+                                                    <br>
+                                                    <%= val.message %>
+                                                </div>
+                                            </li>
+                                            <% } else if(name === val.sender.username.toLowerCase()) {%>
+                                            <li class="left">
+                                                <span class="chat-img1 pull-left">
+                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= val.sender.userImage %>"
+                                                        class="rounded-circle" alt="">
+                                                </span>
+                                                <div class="chat-body1">
+                                                    <span class="chat-name"><%= val.senderName %></span>
+                                                    <br>
+                                                    <%= val.message %>
+                                                </div>
+                                            </li>
+                                            <% } %>
+                                            <% }) %>
+                                            <% } %>
+                                        </ul>
+                                        <script id="message-template" type="text/template">
+                                            <li class="left">
+                                                <span class="chat-img1 pull-left">
+                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>" class="rounded-circle" alt="">
+                                                </span>
+                                                <div class="chat-body1">
+                                                    <span class="chat-name">{{ sender }}</span>
+                                                    <br>
+                                                    {{ text }}
+                                                </div>
+                                            </li>
+                                        </script>
+                                    </div>
+                                    <div class="message_write">
+                                        <form id="message_form" method="post">
+
+                                            <textarea class="form-control" name="message" id="msg"
+                                                placeholder="Type a message"></textarea>
+                                            <div class="clearfix"></div>
+                                            <div class="chat_bottom">
+                                                <button id="send-message" class="pull-right btn btn-primary"
+                                                    style="background: #4aa1f3; border: #4aa1f3; ">
+                                                    Send
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-3 mob-50 mob-clearfix" style=" border: none;">
+                                <div class="row">
+                                    <div class="col-md-12 chat-box" style="padding-left: 0px !important;">
+                                        <div class="card-container chat-bar">
+                                            <div class="card">
+                                                <div class="front">
+                                                    <div class="content main-scroll">
+                                                        <div class="main" id="main_scroll">
+                                                            <p class="friends"
+                                                                style="padding: 11px 0;font-size: 20px; font-weight: bold;">
+                                                                Online Friends <span id="numOfFriends"></span>
+                                                            </p>
+                                                            <hr style="margin-top:10px" />
+                                                            <% if(data.friendsList.length > 0) { %>
+                                                            <% _.forEach(data.friendsList, function(value) { %>
+                                                            <div class="friend" hidden>@<%= value.friendName %></div>
+                                                            <% }) %>
+                                                            <% } %>
+                                                            <div class="onlineFriends"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/privatechat/pm.js"></script>
+    <script src="/js/group/sendrequest.js"></script>
+    <script src="/js/global.js"></script>
+    <script src="/js/deparam.js"></script>
+    <script src="/js/messagelink.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <!-- <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script> -->
+
+</body>
+
+</html>

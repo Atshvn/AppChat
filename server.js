@@ -16,9 +16,11 @@ const {Users} = require('./helpers/UsersClass');
 const {Global} = require('./helpers/Global');
 
 const container = require('./container');
-container.resolve(function (users, _, admin, home, profile, group, results, friend) {
-    mongoose.connect('mongodb+srv://altp:altp@cluster0.7rr7u.mongodb.net/ALTPDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+container.resolve(function (users, _, admin, home, profile, group, results, friend, privatechat) {
+    mongoose.Promise = global.Promise;
+    mongoose.connect('mongodb://altp:altp@cluster0-shard-00-00.7rr7u.mongodb.net:27017,cluster0-shard-00-01.7rr7u.mongodb.net:27017,cluster0-shard-00-02.7rr7u.mongodb.net:27017/ALTPDB?ssl=true&replicaSet=atlas-avg5vm-shard-0&authSource=admin&retryWrites=true&w=majority', {useMongoClient: true});
     const app = SetupExpress();
+    
     function SetupExpress() {
         const app = express();
         const server = http.createServer(app);
@@ -31,6 +33,7 @@ container.resolve(function (users, _, admin, home, profile, group, results, frie
         require('./socket/groupchat')(io, Users);
         require('./socket/friend')(io);
         require('./socket/globalroom')(io, Global, _);
+        require('./socket/privatemessage')(io);
         //Setup router
         const router = require('express-promise-router')();
         users.SetRouting(router);
@@ -40,9 +43,12 @@ container.resolve(function (users, _, admin, home, profile, group, results, frie
         group.SetRouting(router);
         results.SetRouting(router);
         friend.SetRouting(router);
+        privatechat.SetRouting(router);
         app.use(router);
 
-
+        app.use(function(req, res){
+            res.render('404');
+        });
     }
 
 
@@ -71,6 +77,7 @@ container.resolve(function (users, _, admin, home, profile, group, results, frie
         app.use(passport.initialize());
         app.use(passport.session());
         app.locals._ = _;
+
     }
 
 });

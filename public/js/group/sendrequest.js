@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var socket = io();
     
-    var room = $('#groupName').val();
+    var room = $('#friendName').val();
     var sender = $('#sender').val();
     
     socket.on('connect', function(){
@@ -10,7 +10,7 @@ $(document).ready(function(){
         }
         
         socket.emit('joinRequest', params, function(){
-            //console.log('Joined');
+            //console.log('Joined')
         });
     });
     
@@ -23,7 +23,7 @@ $(document).ready(function(){
             var senderImg = $('#senderImg').val().trim();
 
             $.ajax({
-                url: '/group/'+room,
+                url: '/friends',
                 type: 'POST',
                 data: {
                     senderId: senderId,
@@ -41,7 +41,7 @@ $(document).ready(function(){
             var user_Id = $('#user_Id').val();
 
             $.ajax({
-                url: '/group/'+room,
+                url: '/friends',
                 type: 'POST',
                 data: {
                     user_Id: user_Id
@@ -60,7 +60,7 @@ $(document).ready(function(){
         var receiverName = $('#receiverName').val();
         
         $.ajax({
-            url: '/group/'+room,
+            url: '/friends',
             type: 'POST',
             data: {
                 receiverName: receiverName
@@ -77,12 +77,12 @@ $(document).ready(function(){
     });
     
     $('#accept_friend').on('click', function(){
-        var senderId = $('#senderId').val();
-        var senderName = $('#senderName').val();
-        var senderImg = $('#senderImg').val();
+        var senderId = $('#senderId').val().trim();
+        var senderName = $('#senderName').val().trim();
+        var senderImg = $('#senderImg').val().trim();
         
         $.ajax({
-            url: '/group/'+room,
+            url: '/friends',
             type: 'POST',
             data: {
                 senderId: senderId,
@@ -100,7 +100,7 @@ $(document).ready(function(){
         var user_Id = $('#user_Id').val();
         
         $.ajax({
-            url: '/group/'+room,
+            url: '/friends',
             type: 'POST',
             data: {
                 user_Id: user_Id

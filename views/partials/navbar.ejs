@@ -11,8 +11,8 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-right: 150px;">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0" id="reload" >
-            <li class="dropdown">             
-                <a  style="color:#868f97; outline: none !important; border: none !important;" class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
+            <li class="dropdown d-flex align-items-center nav-link">             
+                <a  style="color:#868f97; display: block;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown">
                     <span class="glyphicon fa fa-user-plus nav-glyphicon" style="border-radius: 50%; color: white !important;"></span>
                     <% if(data.totalRequest > 0){ %>
                         <span class="label label-primary nav-label-icon" style="color: white;"><%= data.request.length %></span>
@@ -62,8 +62,7 @@
                                                             class="fa fa-check" aria-hidden="true"></i>Accept</button>
                                                     </div>
                                                     <div class="col-m-6">
-                                                        <input type="hidden" name="user_Id" id="user_Id" value="<%= val.userId._id %>">
-                                                   
+                                                        <input type="hidden" name="user_Id" id="user_Id" value="<%= val.userId._id %>">                                      
                                                         <button type="submit" name="cancel"
                                                         class="btn drop-cancel remove" id="cancel_friend">
                                                         <i class="fa fa-times" aria-hidden="true"></i> Cancel
@@ -87,12 +86,10 @@
 
                 </ul>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class=" nav-link d-flex align-items-center">
+                <%- include('message.ejs') %>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
+           
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" style="font-weight: bold;" aria-expanded="false">

@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     email: {type: String, unique: true},
     verify: {type: Boolean, default: false},
     password: {type: String, default: ''},
-    phone: {type: Number, default: ''},
+    phone: {type: String, default: ''},
     userImage: {type: String, default: 'defaultPic.png'},
     facebook: {type: String, default: ''},
     fbTokens: Array,
@@ -41,3 +41,4 @@ userSchema.methods.validUserPassword = function(password){
 
 
 module.exports = mongoose.model('User', userSchema);
+

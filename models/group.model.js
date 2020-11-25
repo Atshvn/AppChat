@@ -7,6 +7,11 @@ const group = mongoose.Schema({
     member: [{ 
         username: {type: String, default: ''},
         email: { type: String, default: ''},
+        address:{type: String, default: ''},
+        gender:{type: String, default: ''},
+        aboutme:{type: String, default: ''},
+        phone: {type: Number, default: ''},
+        userImage: {type: String, default: 'defaultPic.png'},
     }]
 });
 module.exports = mongoose.model('Group', group);

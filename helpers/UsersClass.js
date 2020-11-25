@@ -34,5 +34,4 @@ class Users {
         return namesArray;
     }
 }
-
 module.exports = {Users};

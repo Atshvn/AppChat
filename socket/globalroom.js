@@ -18,7 +18,7 @@ module.exports = function(io, Global, _){
             const user =clients.RemoveUser(socket.id);
 
             if(user){
-                var userData = clients.GetRoomList(user.room);
+            var userData = clients.GetRoomList(user.room);
             const arr = _.uniqBy(userData, 'name');
             const removeData = _.remove(arr, {'name': user.name})
                 io.to(user.room).emit('loggedInUser', arr);

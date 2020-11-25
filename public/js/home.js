@@ -12,7 +12,7 @@ $(document).ready(function () {
                 groupName: groupName
             },
             success: function () {
-                console.log(groupName);
+               // console.log(groupName);
             }
         })
     })

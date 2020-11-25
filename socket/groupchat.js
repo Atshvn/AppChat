@@ -3,7 +3,7 @@ module.exports = function (io, Users) {
     const users = new Users();
     
     io.on('connection', (socket) => {
-        console.log('Connected');
+        //console.log('Connected');
 
         socket.on('join', (params, callback) => {
             socket.join(params.room);
@@ -15,11 +15,12 @@ module.exports = function (io, Users) {
         });
 
         socket.on('createMessage', (message, callback) => {
-            console.log(message);
+            //console.log(message);
             io.to(message.room).emit('newMessage', {
                 text: message.text,
                 room: message.room,
-                from: message.sender
+                from: message.sender,
+                image: message.userPic
             });
             callback();
         });

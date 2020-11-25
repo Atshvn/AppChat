@@ -28,20 +28,20 @@ $(document).ready(function(){
         var address = $('#address').val();
         var gender = $('#gender').val();
         var aboutme = $('#aboutme').val();
-        var userImage = $('#add-input').val();
-      //   var image = $('#user-image').val();
+        var upload = $('#add-input').val();
+        var image = $('#user-image').val();
         
         var valid = true;
         
-        // if(upload === ''){
-        //     $('#add-input').val(image);
-        // }
+        if(upload === ''){
+            $('#add-input').val(image);
+        }
         
-        if(username == '' || fullname == '' || address == '' || gender == '' || aboutme== ''){
+        if(username == '' || fullname == '' || address == '' || gender == '' || aboutme == ''){
             valid = false;
             $('#error').html('<div class="alert alert-danger">Bạn cần nhập đầy đủ thông tin....</div>');
         }else{
-            // upload = $('#add-input').val();
+             upload = $('#add-input').val();
             $('#error').html('');
         }
         
@@ -55,7 +55,7 @@ $(document).ready(function(){
                     gender: gender,
                     address: address,
                     aboutme: aboutme,
-                    upload: userImage
+                    upload: upload
                 },
                 success: function(){
                     setTimeout(function(){

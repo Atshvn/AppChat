@@ -4,14 +4,24 @@ const nodemailer = require('nodemailer');
 
 
 module.exports = function (_, passport, User, async) {
-
+    var smtpTransport = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "altp.appchat@gmail.com",
+            pass: "123456789altp"
+        }
+    });
+    let randomCode = null;
+    randomCode = Math.floor(Math.random() * 1000000);
     return {
         SetRouting: function (router) {
             router.get('/', this.indexPage);
             router.get('/login', this.loginEmail);
             router.get('/loginphone', this.loginPhone);
             router.get('/signup', this.getSignUp);
-          
+            router.get('/vetify', this.getPageVetify);
+            // router.get('/vetifyemail', this.getvetifyEmail);
+              router.post('/signup/vetifyemail', this.vetifyEmail);
             // router.get('/signupphone', this.getSignUpPhone);
             router.get('/logout', this.logout)
             router.get('/auth/facebook', this.getFacebookLogin);
@@ -24,6 +34,10 @@ module.exports = function (_, passport, User, async) {
             router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
             // router.post('/signupphone', User.SignUpValidationPhone, this.postSignUpPhone);
         },
+        getPageVetify: function(req, res){
+            return res.render('xacthucemail');
+        }
+        ,
         indexPage: function (req, res) {
 
             return res.render('verify');
@@ -51,18 +65,45 @@ module.exports = function (_, passport, User, async) {
 
         getSignUp: function (req, res) {
             const errors = req.flash('error');
-            return res.render('signup', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0 });
+            return res.render('signup', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0,rand: randomCode });
         },
         // getSignUpPhone: function (req, res) {
         //     const errors = req.flash('error');
         //     return res.render('signupphone', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0 });
         // },
+        // getvetifyEmail:function(req, res){
+        //     res.render('verifyemail');
 
-        postSignUp: passport.authenticate('local.signup', {
-            successRedirect: '/',
-            failureRedirect: '/signup',
-            failureFlash: true
-        }),
+        // },
+         vetifyEmail: function(req, res){
+            var userName = req.body.email;
+            console.log(userName);
+            //const show_modal = !!req.body.modal;
+            //var passWord = req.body.password;
+            smtpTransport.sendMail(
+              {
+                to:'tuananh.0706999@gmail.com',
+                subject: "Verification",
+                text: "Your is code" + "   " + randomCode
+              },
+              function (err, response) {
+                if (err) {
+                  console.log(err);
+                   
+                    res.end("error");
+                } else {
+                    console.log("Message sent: " + response.message);
+                    res.end("sent");
+                }
+              }
+            );
+           
+        },
+        postSignUp:  passport.authenticate('local.signup', {
+                successRedirect: '/',
+                failureRedirect: '/signup',
+                failureFlash: true
+            }),
         // postSignUpPhone: passport.authenticate('local.signup.phone', {
         //     successRedirect: '/loginphone',
         //     failureRedirect: '/signupphone',

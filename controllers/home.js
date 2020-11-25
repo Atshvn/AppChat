@@ -1,7 +1,7 @@
 
 const User = require('../models/user.model');
 
-module.exports = function (async, Group, _) {
+module.exports = function (async, Group, _, Message, FriendResult) {
     return {
         SetRouting: function (router) {
             router.get('/home', this.homePage);
@@ -23,17 +23,51 @@ module.exports = function (async, Group, _) {
                         .exec((err, result) => {
                             callback(err, result);
                         })
+                },
+                function (callback) {
+                    const nameRegex = new RegExp("^" + req.user.username.toLowerCase(), "i");
+                    Message.aggregate(
+                        { $match: { $or: [{ "senderName": nameRegex }, { "receiverName": nameRegex }] } },
+                        { $sort: { "createdAt": -1 } },
+                        {
+                            $group: {
+                                "_id": {
+                                    "last_message_between": {
+                                        $cond: [
+                                            {
+                                                $gt: [
+                                                    { $substr: ["$senderName", 0, 1] },
+                                                    { $substr: ["$receiverName", 0, 1] }]
+                                            },
+                                            { $concat: ["$senderName", " and ", "$receiverName"] },
+                                            { $concat: ["$receiverName", " and ", "$senderName"] }
+                                        ]
+                                    }
+                                }, "body": { $first: "$$ROOT" }
+                            }
+                        },function(err, newResult){
+                            const arr = [
+                                {path: 'body.sender', model: 'User'},
+                                {path: 'body.receiver', model: 'User'}
+                            ];
+                            
+                            Message.populate(newResult, arr, (err, newResult1) => {
+                                callback(err, newResult1);
+                            });
+                        }
+                    )
                 }
             ], (err, results) => {
                 const res1 = results[0];
                 const res2 = results[1];
+                const res3 = results[2];
                 const dataChunk =[];
                 const chunksize = 4;
                 for(let i =0; i < res1.length; i+= chunksize)
                 {
                     dataChunk.push(res1.slice(i, i + chunksize));
                 }
-                res.render('home', { title: 'ALTP | Home', chunks: dataChunk , user: req.user, data: res2});
+                res.render('home', { title: 'ALTP | Home', chunks: dataChunk , user: req.user, data: res2, chat: res3});
             })
         },
         postHomePage: function(req, res){
@@ -45,16 +79,23 @@ module.exports = function (async, Group, _) {
                     }, {
                         $push: {member : {
                             username : req.user.username,
-                            email: req.user.email
+                            email: req.user.email,
+                            phone: req.user.phone,
+                            userImage: req.user.userImage,
+                            address: req.user.address,
+                            gender: req.user.gender,
+                            aboutme: req.user.aboutme
                         }}
                     },(err, count) => {
                        
                         callback(err, count);
                     });
-                }
+                },
+               
             ], (err, results) => {
                 res.redirect('/home');
-            })
+            });
+            FriendResult.PostRequest(req, res, '/home');
         },
         logout: function(req, res){
             req.logout();

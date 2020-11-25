@@ -61,7 +61,7 @@
                                 <% _.forEach(val, function(val2){ %>
                                 <form action="/home" method="post" id="add_group">
                                     <div class="item col-md-3">
-                                       <a style="text-decoration: none; color: black;" href="/group/<%= val2.name.replace(/ /g, "-") %>">
+                                       <a style="text-decoration: none; color: black;" href="/group/<%= val2.name %>">
                                         <div class="card" style="width: 18rem;">
                                             <img class="card-img-top" src="https://chatappaltp.s3.amazonaws.com/<%= val2.image %>" alt="Card image cap">
                                             <div class="card-body">
@@ -98,7 +98,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/group/sendrequest.js"></script>
     <script src="/js/home.js"></script>
+    <script src="/js/messagelink.js"></script>
     <script src="/js/global.js"></script>
+    <script src="/js/deparam.js"></script>
 
 
 </body>

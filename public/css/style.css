@@ -94,11 +94,25 @@ body {
     margin-top: 0px;
     font-size: 17px;
 }
+.dropdown-tag-head2 {
+    font-size: 26px !important;
+    font-weight: bold;
+    color:#323232;
+    padding: 20px 10px;
+    font-size: 17px;
+    
+}
 .dropdown-tag {
     background: #81FFEF;
     color: white;
     padding: 4px;
     margin-bottom: 15px;
+    width: 100%;
+}
+.dropdown-tag2 {
+    
+    color: #323232;
+    
     width: 100%;
 }
 #add-fav {
@@ -123,6 +137,14 @@ margin: 0 10px 0 15px !important;
 .dropdown-menu {
     margin-top: 10px;
     padding-top: 0px !important;
+  
+}
+.xx {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    position: relative;
+    width: 340px;
+   left: 850px;
   
 }
 .drop-res {
