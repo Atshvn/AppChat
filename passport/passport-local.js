@@ -33,7 +33,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.username = req.body.username;
         newUser.fullname = req.body.username;
         newUser.email = req.body.email;
-        //newUser.phone = req.body.phone;
+        newUser.phone = req.body.phone;
         newUser.password = newUser.encryptPassword(req.body.password);
 
         newUser.save((err) => {
@@ -74,8 +74,9 @@ passport.use('local.login', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, (req, email, password, done) => {
-
-    User.findOne({ 'email': email }, (err, user) => {
+    var criteria = (email.indexOf('@') === -1) ? {'phone': email} : {'email': email};
+  console.log(criteria);
+    User.findOne( criteria , (err, user) => {
         if (err) {
             return done(err);
         }
@@ -89,25 +90,25 @@ passport.use('local.login', new LocalStrategy({
         return done(null, user);
     });
 }));
-passport.use('local.login.phone', new LocalStrategy({
-    usernameField: 'phone',
-    passwordField: 'password',
-    passReqToCallback: true
-}, (req, phone, password, done) => {
+// passport.use('local.login.phone', new LocalStrategy({
+//     usernameField: 'phone',
+//     passwordField: 'password',
+//     passReqToCallback: true
+// }, (req, phone, password, done) => {
 
-    User.findOne({ 'phone': phone }, (err, user) => {
-        if (err) {
-            return done(err);
-        }
+//     User.findOne({ 'phone': phone }, (err, user) => {
+//         if (err) {
+//             return done(err);
+//         }
 
-        const messages = [];
-        if (!user || !user.validUserPassword(password)) {
-            messages.push('Phone Does Not Exist or Password is Invalid');
-            return done(null, false, req.flash('error', messages));
-        }
-        return done(null, user);
-    });
-}));
+//         const messages = [];
+//         if (!user || !user.validUserPassword(password)) {
+//             messages.push('Phone Does Not Exist or Password is Invalid');
+//             return done(null, false, req.flash('error', messages));
+//         }
+//         return done(null, user);
+//     });
+// }));
 
 
 

@@ -7,8 +7,8 @@ module.exports = function(){
             req.checkBody('username', 'Username Must Not Be Less Than 5').isLength({min: 5});
             req.checkBody('email', 'Email is Required').notEmpty();
             req.checkBody('email', 'Email is Invalid').isEmail();
-            // req.checkBody('phone', 'Phone is Required').notEmpty();
-            // req.checkBody('phone', 'Phone is Invalid').isLength({ max:10});
+             req.checkBody('phone', 'Phone is Required').notEmpty();
+             req.checkBody('phone', 'Phone is Invalid').isLength({ max:10});
             req.checkBody('password', 'Password is Required').notEmpty();
             req.checkBody('password', 'Password Must Not Be Less Than 5').isLength({min: 5});
             
@@ -29,8 +29,8 @@ module.exports = function(){
         },
         
         LoginValidation: (req, res, next) => {
-            req.checkBody('email', 'Email is Required').notEmpty();
-            req.checkBody('email', 'Email is Invalid').isEmail();
+           // req.checkBody('email', 'Email is Required').notEmpty();
+           // req.checkBody('email', 'Email is Invalid').isEmail();
             req.checkBody('password', 'Password is Required').notEmpty();
             req.checkBody('password', 'Password Must Not Be Less Than 5').isLength({min: 5});
             

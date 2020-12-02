@@ -15,9 +15,8 @@ module.exports = function (_, passport, User, async) {
     randomCode = Math.floor(Math.random() * 1000000);
     return {
         SetRouting: function (router) {
-            router.get('/', this.indexPage);
-            router.get('/login', this.loginEmail);
-            router.get('/loginphone', this.loginPhone);
+            router.get('/', this.loginEmail);
+           // router.get('/login', this.loginEmail);
             router.get('/signup', this.getSignUp);
             router.get('/vetify', this.getPageVetify);
             // router.get('/vetifyemail', this.getvetifyEmail);
@@ -29,39 +28,39 @@ module.exports = function (_, passport, User, async) {
             router.get('/auth/google', this.getGoogleLogin);
             router.get('/auth/google/callback', this.googleLogin);
 
-            router.post('/login', User.LoginValidation, this.postLogin);
+            router.post('/', User.LoginValidation, this.postLogin);
             router.post('/signup', User.SignUpValidation, this.postSignUp);
-            router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
+           // router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
             // router.post('/signupphone', User.SignUpValidationPhone, this.postSignUpPhone);
         },
         getPageVetify: function(req, res){
             return res.render('xacthucemail');
         }
         ,
-        indexPage: function (req, res) {
+        // indexPage: function (req, res) {
 
-            return res.render('verify');
-        },
+        //     return res.render('verify');
+        // },
         loginEmail: function(req, res){
             const errors = req.flash('error');
             return res.render('index',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
         }
         ,
-        loginPhone: function(req, res){
-            const errors = req.flash('error');
-            return res.render('loginphone',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
-        }
-        ,
+        // loginPhone: function(req, res){
+        //     const errors = req.flash('error');
+        //     return res.render('loginphone',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        // }
+        // ,
         postLogin: passport.authenticate('local.login', {
             successRedirect: '/home',
-            failureRedirect: '/login',
+            failureRedirect: '/',
             failureFlash: true
         }),
-        postLoginPhone: passport.authenticate('local.login.phone', {
-            successRedirect: '/home',
-            failureRedirect: '/loginphone',
-            failureFlash: true
-        }),
+        // postLoginPhone: passport.authenticate('local.login.phone', {
+        //     successRedirect: '/home',
+        //     failureRedirect: '/loginphone',
+        //     failureFlash: true
+        // }),
 
         getSignUp: function (req, res) {
             const errors = req.flash('error');
