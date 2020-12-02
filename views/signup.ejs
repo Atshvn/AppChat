@@ -47,10 +47,11 @@
                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
                     statements in <a href="#" class="term-service">Terms of service</a></label>
                 </div>
-                <button type="button" id="send_email" class="btn btn-primary" data-toggle="modal"
-                  data-target="#exampleModal">Vetify</button>
+                <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up" />
+                <!-- <button type="button" id="send_email" class="btn btn-primary" data-toggle="modal"
+                  data-target="#exampleModal">Vetify</button> -->
               </div>
-               <div id="hihihi">
+               <!-- <div id="hihihi">
                 <i class="fa fa-chevron-left" aria-hidden="true" style="margin-bottom: 20px;"></i>
                 <div class="form-group">
                   <label for="pass"><i class="zmdi zmdi-lock"></i></label>
@@ -58,7 +59,7 @@
                 </div>
                 <input type="text" name="cfotp" id="" value="<%= rand %>" >
                 <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up" />
-               </div>
+               </div> -->
               <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -108,7 +109,7 @@
 
 
   </div>
-  <script>
+  <!-- <script>
   $('#hihihi').hide();
 $('#send_email').on('click',function(){
   $('#hihi').hide();
@@ -118,7 +119,7 @@ $('.fa-chevron-left').on('click',function(){
   $('#hihi').show();
   $('#hihihi').hide();
 });
-  </script>
+  </script> -->
  <script>
     $(document).ready(function () {
       var from, otp, subject, text;
