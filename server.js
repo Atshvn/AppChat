@@ -19,6 +19,7 @@ const container = require('./container');
 container.resolve(function (users, _, admin, home, profile, group, results, friend, privatechat) {
     mongoose.Promise = global.Promise;
     mongoose.connect('mongodb://altp:altp@cluster0-shard-00-00.7rr7u.mongodb.net:27017,cluster0-shard-00-01.7rr7u.mongodb.net:27017,cluster0-shard-00-02.7rr7u.mongodb.net:27017/ALTPDB?ssl=true&replicaSet=atlas-avg5vm-shard-0&authSource=admin&retryWrites=true&w=majority', {useMongoClient: true});
+    mongoose.set('useCreateIndex', true);
     const app = SetupExpress();
     
     function SetupExpress() {

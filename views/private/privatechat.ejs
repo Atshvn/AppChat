@@ -42,10 +42,10 @@
             <div class="container-fluid" style="padding: 0px !important;">
                 <input type="hidden" name="name-user" id="name-user" value="<%= user.username %>">
                 <input type="hidden" name="name-image" id="name-image" value="<%= user.userImage %>">
-                <div class="col-md-12" style="padding: 0px !important;" >
-                    <div class="chat_container" style="height: 725px !important; overflow: hidden;">
+                <div class="col-md-12" style="padding: 0px !important;">
+                    <div class="chat_container" style="height: 725px !important; overflow: hidden; ">
                         <div class="row">
-                            <div class="col-sm-4 col-md-3 mob-clearfix"
+                            <div  class="col-sm-4 col-md-3 mob-clearfix"
                                 style=" padding-right: 0px !important; border: none; background-color: white; border-right:1px solid rgb(203, 206, 209);">
                                 <div class="navbar-login2">
                                     <div class="col-md-12">
@@ -56,7 +56,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div id="reload1" class="col-md-12">
                                         <% if(chat.length > 0) {%>
                                         <% _.forEach(chat, function(val) { %>
                                         <% if(user.username !== val.body.senderName) {%>
@@ -138,7 +138,7 @@
                                     <div class="new_message_head">
                                         <div class="pull-left">
                                             <button id="receiver_name"
-                                                style="font-weight: bold; color: #272343; font-size: 25px;"
+                                                style="font-weight: bold; color: #696969 ; font-size: 25px;"
                                                 class="club_name"></button>
                                         </div>
                                         <div class="pull-right">
@@ -151,26 +151,50 @@
                                             <% _.forEach(chats, function(val) { %>
                                             <% if(name === val.receiver.username.toLowerCase()) {%>
                                             <li class="left">
-                                                <span class="chat-img1 pull-left">
-                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>"
-                                                        class="rounded-circle" alt="">
-                                                </span>
-                                                <div class="chat-body1">
-                                                    <span class="chat-name"><%= val.senderName %></span>
-                                                    <br>
-                                                    <%= val.message %>
+                                                <div class="row">
+
+                                                    <div class="col-11" style="padding: 0px !important;">
+                                                        <div class="chat-body"
+                                                            style="padding:8px 20px 8px 20px; color: #fff; background-color:  #00D0EA ;float: right;width: fit-content; max-width: 400px;border-radius: 30px;">
+                                                            <!-- <span class="chat-name" style="color: white;"><%= val.senderName %></span> -->
+
+                                                            <%= val.message %>
+                                                            <br>
+                                                            <% var x = val.createAt.toLocaleString("en-US", { hour: "numeric", minute: "numeric" }); %>
+                                                           
+                                                            <p class="time-none" style="  font-size: 12px; display: none;" > <%= x %></p> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1" style="padding: 0px 0px 0px 5px !important;">
+                                                        <span class="chat-img1 pull-left">
+                                                            <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>"
+                                                                class="rounded-circle" alt="">
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </li>
                                             <% } else if(name === val.sender.username.toLowerCase()) {%>
                                             <li class="left">
-                                                <span class="chat-img1 pull-left">
-                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= val.sender.userImage %>"
-                                                        class="rounded-circle" alt="">
-                                                </span>
-                                                <div class="chat-body1">
-                                                    <span class="chat-name"><%= val.senderName %></span>
-                                                    <br>
-                                                    <%= val.message %>
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <span class="chat-img1 pull-left">
+                                                            <img src="https://chatappaltp.s3.amazonaws.com/<%= val.sender.userImage %>"
+                                                                class="rounded-circle" alt="">
+                                                        </span>
+
+                                                    </div>
+                                                    <div class=" col-11" style="padding: 0px !important;">
+                                                        <div class="chat-body"
+                                                            style="padding:8px 20px; background-color: #eee ;width: fit-content; max-width: 400px; border-radius: 30px;">
+                                                            <!-- <span class="chat-name"><%= val.senderName %></span> -->
+
+                                                            <%= val.message %>
+                                                            <br>
+                                                            <% var x = val.createAt.toLocaleString("en-US", { hour: "numeric", minute: "numeric" }); %>
+                                                           
+                                                            <p class="time-none" style="font-size: 12px;  display: none;" > <%= x %></p> 
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </li>
                                             <% } %>
@@ -179,14 +203,43 @@
                                         </ul>
                                         <script id="message-template" type="text/template">
                                             <li class="left">
-                                                <span class="chat-img1 pull-left">
-                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= user.userImage %>" class="rounded-circle" alt="">
-                                                </span>
-                                                <div class="chat-body1">
-                                                    <span class="chat-name">{{ sender }}</span>
-                                                    <br>
-                                                    {{ text }}
-                                                </div>
+                                              <div class="row">
+                                                  <div class="col-11" style="padding: 0px !important;">
+                                                   
+                                                    <div class="chat-body"   style="padding:8px 20px 8px 20px; color: #fff; background-color:  #00D0EA ;float: right;width: fit-content; max-width: 400px;border-radius: 30px;">
+                                                        <!-- <span class="chat-name">{{ sender }}</span> -->
+                                                       
+                                                        {{ text }} <br>
+                                                       <p class="time-none" style="  font-size: 12px; display: none;" > {{ formattedTime }}</p>
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-1" style="padding: 0px 0px 0px 5px !important;">
+                                                    <span class="chat-img1 pull-left">
+                                                        <img src="https://chatappaltp.s3.amazonaws.com/{{userImage}}" class="rounded-circle" alt="">
+                                                    </span>
+                                                  </div>
+                                              </div>
+                                            </li>
+                                        </script>
+                                        <script id="message-template2" type="text/template">
+                                            <li class="left">
+                                              <div class="row">
+                                                <div class="col-1" >
+                                                    <span class="chat-img1 pull-left">
+                                                        <img src="https://chatappaltp.s3.amazonaws.com/{{userImage}}" class="rounded-circle" alt="">
+                                                    </span>
+                                                  </div>
+
+                                                  <div class="col-11" style="padding: 0px !important;">
+                                                    <div class="chat-body "
+                                                    style="padding:8px 20px; background-color: #eee ;width: fit-content; max-width: 400px; border-radius: 30px;">
+                                                       
+                                                        {{ text }} <br>
+                                                        <p class="time-none" style="  font-size: 12px; display: none;" > {{ formattedTime }}</p>
+                                                    </div>
+                                                  </div>
+                                                 
+                                              </div>
                                             </li>
                                         </script>
                                     </div>
@@ -198,7 +251,7 @@
                                             <div class="clearfix"></div>
                                             <div class="chat_bottom">
                                                 <button id="send-message" class="pull-right btn btn-primary"
-                                                    style="background: #4aa1f3; border: #4aa1f3; ">
+                                                    style="background:  #00D0EA; border:  #00D0EA; ">
                                                     Send
                                                 </button>
                                             </div>

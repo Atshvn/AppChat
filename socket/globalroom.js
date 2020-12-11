@@ -9,7 +9,7 @@ module.exports = function(io, Global, _){
 
             const nameProp = clients.GetRoomList(global.room);
             const arr = _.uniqBy(nameProp, 'name');
-            //console.log(arr);
+           // console.log(global.name);
             
             io.to(global.room).emit('loggedInUser', arr);
             

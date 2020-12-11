@@ -1,7 +1,7 @@
 <% var numberOfTrue = 0 %>
  
 <% for(var i = 0; i < chat.length; i++) {
-      if(chat[i].body.isRead === false){
+      if(chat[i].body.isReal === false){
           numberOfTrue = numberOfTrue + 1
       }
 } %>
@@ -12,7 +12,7 @@
     <% if(numberOfTrue !== 0) {%>
     <span class="label label-primary nav-label-icon" style="color: white;" id=""><%= numberOfTrue %></span>
     <% } else { %>
-    <span class="label label-primary nav-label-icon" style="color: white;" id="">5</span>
+    <span ></span>
     <% } %>
 </a>
 <ul class="dropdown-menu dmenu xx">

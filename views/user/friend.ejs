@@ -38,6 +38,8 @@
          <%- include('../partials/navbar.ejs') %>
 
             <div class="container-fluid">
+                <input type="hidden" name="name-user" id="name-user" value="<%= user.username %>">
+                <input type="hidden" name="name-image" id="name-image" value="<%= user.userImage %>">
                 <div class="col-md-12 pt-4 pb-4">
                     <form action="/results/friend" method="post">
                         <div class="form-group ad-30" style="margin-top: 8px;">
@@ -254,6 +256,7 @@
     <script src="/js/messagelink.js"></script>
     <script src="/js/global.js"></script>
     <script src="/js/deparam.js"></script>
+    <script src="/js/pm.js"></script>
     <!-- <script>
         $('#del-btn').on('click', function() {
            var id = $(this).attr('data-id');

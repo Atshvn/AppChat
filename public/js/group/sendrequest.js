@@ -73,7 +73,8 @@ $(document).ready(function(){
                     console.log('Request Sent');
                 })
             }
-        })
+        });
+        $('#reload').load(location.href + ' #reload');
     });
     
     $('#accept_friend').on('click', function(){
