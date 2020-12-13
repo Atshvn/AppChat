@@ -39,7 +39,7 @@ module.exports = function (aws, formidable, async, Message, FriendResult) {
                                             { $concat: ["$receiverName", " and ", "$senderName"] }
                                         ]
                                     }
-                                }, "body": { $first: "$$ROOT" }
+                                }, "body": { $last: "$$ROOT" }
                             }
                         },function(err, newResult){
                             const arr = [

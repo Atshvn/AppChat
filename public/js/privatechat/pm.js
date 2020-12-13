@@ -58,17 +58,7 @@ $(document).ready(function () {
         // $('#messages').load(location.href + ' #messages');
 
     });
-    $('.chat_area').on('DOMSubtreeModified', function () {
-        $('.chat_area').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
-        });
-    $('.message_write').keypress(function (e) {
-        if (e.which == 13) {
-
-            $('#send-message').click();
-
-
-        }
-    });
+   
     $('#message_form').on('submit', function (e) {
         e.preventDefault();
         var msg = $('#msg').val();
@@ -99,6 +89,17 @@ $(document).ready(function () {
                 $('#msg').val('');
             }
         })
+    });
+    $('.chat_area').on('DOMSubtreeModified', function () {
+        $('.chat_area').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
+        });
+    $('.message_write').keypress(function (e) {
+        if (e.which == 13) {
+
+            $('#send-message').click();
+
+
+        }
     });
     $('.chat-body').on('click', function(){
         ($(".time-none").css("display") == "none")?

@@ -28,12 +28,11 @@ passport.use('local.signup', new LocalStrategy({
         if (user) {
             return done(null, false, req.flash('error', 'User with email already exist'));
         }
-
         const newUser = new User();
         newUser.username = req.body.username;
         newUser.fullname = req.body.username;
         newUser.email = req.body.email;
-        newUser.phone = req.body.phone;
+       // newUser.phone = req.body.phone;
         newUser.password = newUser.encryptPassword(req.body.password);
 
         newUser.save((err) => {
@@ -42,33 +41,34 @@ passport.use('local.signup', new LocalStrategy({
     });
 }));
 
-// passport.use('local.signup.phone', new LocalStrategy({
-//     usernameField: 'phone',
-//     passwordField: 'password',
-//     passReqToCallback: true
-// }, (req, phone, password, done) => {
+passport.use('local.signup.phone', new LocalStrategy({
+    usernameField: 'phone',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, phone, password, done) => {
 
-//     User.findOne({'phone': phone }, (err, user) => {
-//         if (err) {
-//             return done(err);
-//         }
+    User.findOne({'phone': phone }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
 
-//         if (user) {
-//             return done(null, false, req.flash('error', 'User with phone already exist'));
-//         }
+        if (user) {
+            return done(null, false, req.flash('error', 'User with phone already exist'));
+        }
 
-//         const newUserr = new User();
-//         newUserr.username = req.body.username;
-//         newUserr.fullname = req.body.username;
-//         newUserr.email = req.body.email;
-//         newUserr.phone = req.body.phone;
-//         newUserr.password = newUserr.encryptPassword(req.body.password);
+        const newUserr = new User();
+        newUserr.username = req.body.username;
+        newUserr.fullname = req.body.username;
+       // newUserr.email = req.body.email;
+        newUserr.phone = req.body.phone;
+        newUserr.password = newUserr.encryptPassword(req.body.password);
 
-//         newUserr.save((err) => {
-//             done(null, newUserr);
-//         });
-//     });
-// }));
+        newUserr.save((err) => {
+            done(null, newUserr);
+            console.log(err);
+        });
+    });
+}));
 passport.use('local.login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',

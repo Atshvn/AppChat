@@ -36,19 +36,55 @@
 
             <div class="container-fluid">
                 <div class="col-md-12 pt-4 pb-4">
-                    <form action="/results" method="post">
-                        <div class="form-group ad-30" style="margin-top: 8px;">
-                            <div class="input-group search-style">
-
-                                <input type="text" name="name" id="search"
-                                    class="form-control new-search-bar search-form-bar" value="" placeholder="Enter Group Name">
-                                <span class="input-group-btn">
-                                    <button class="btn input-btn" id="search-form">Search</button>
-                                </span>
-
+                   <div class="row">
+                       <div class="col-10">
+                        <form action="/results" method="post">
+                            <div class="form-group ad-30" style="margin-top: 8px;">
+                                <div class="input-group search-style">
+    
+                                    <input type="text" name="name" id="search"
+                                        class="form-control new-search-bar search-form-bar" value="" placeholder="Enter Group Name">
+                                    <span class="input-group-btn">
+                                        <button class="btn input-btn" id="search-form">Search</button>
+                                    </span>
+    
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                       </div>
+                       <div class="col-2 d-flex align-items-center">
+                        <button type="button" class="btn "  style="background-color: #00D0EA; color: white;" data-toggle="modal" data-target="#exampleModalCenter">
+                            Add Group
+                          </button>
+                          <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">New Group</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="home/newgroup" method="post">
+                        
+                <input type="text" name="group"  class="form-control" placeholder="Group Name">
+                <input type="text" name="title"  class="form-control mt-3" placeholder="Title">
+    
+                <button type="button" class="btn  upload-btn" style="border: 1px solid gray !important; margin-top: 15px;">Upload avatar</button>
+                <input type="file" name="upload" id="upload-input"
+                style="display:none">
+                <br>
+                
+    
+                <button class="btn btn-lg" style="float: right;background-color: #00D0EA; color: white;" >Add Group</button>
+            </form> 
+      </div>
+    </div>
+  </div>
+                       </div>
+                   </div>
                 </div>
                 <div class="col-md-12">
                     <input type="hidden" name="name-user" id="name-user" value="<%= user.username %>">
@@ -59,7 +95,7 @@
                         <div class="category-list">
                             <div class="row">
                                 <% _.forEach(val, function(val2){ %>
-                                <form action="/home" method="post" id="add_group">
+                                <form action="/home" method="post" id="add_group" style="margin-bottom: 20px;">
                                     <div class="item col-md-3">
                                        <a style="text-decoration: none; color: black;" href="/group/<%= val2.name %>">
                                         <div class="card" style="width: 18rem;">
@@ -72,7 +108,7 @@
                                               <div>
                                                   <input type="hidden" name="id" id="id" value="<%= val2._id %>">
                                                   <input type="hidden" name="groupName" id="groupName" value="<%= val2.name %>">
-                                                <button class="btn mt-3" style="background-color: #8EEFE9; color: white;">Add Group</button>
+                                                <button class="btn mt-3" style="background-color: #00D0EA; color: white;">Join Group</button>
                                               </div>
                                             </div>
                                           </div>
@@ -93,14 +129,15 @@
     <!-- /#wrapper -->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/group/sendrequest.js"></script>
     <script src="/js/home.js"></script>
     <script src="/js/messagelink.js"></script>
     <script src="/js/global.js"></script>
     <script src="/js/deparam.js"></script>
+    <script src="/js/upload.js"></script>
 
 
 </body>

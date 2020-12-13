@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home | A L T P</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/verify.css">
+
+</head>
+
+<body>
+
+    <div class="col-lg-6 float-center center1 txt-center card-box2 two-step-div mt-5">
+        <img class="my-img" src="https://icons-for-free.com/iconfiles/png/512/locked+login+password+privacy+private+protect+protection+safe-1320196167397530530.png">
+        <p class="two-title">Verify OTP code</p>
+        <p class="two-p">Please check your email and enter code,
+            <br>hihihihihihihihihihihihihihihihihihihihihihihihihihhihihi</p>
+        <form id="form" action="/vetifyemail/final">
+            <div>   
+                <input type="hidden" name="email" value="<%= email %>">
+                <input type="text" maxLength="6" name="code" size="6" min="0" max="9" pattern="[0-9]{6}" />
+
+            </div>
+            <button style="margin-top: 35px" class="btn btn-primary btn-embossed btn-verify">Verify</button>
+    
+        </form>
+    </div>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

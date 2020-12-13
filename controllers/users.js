@@ -1,9 +1,12 @@
 'use strict';
+const user = require('../models/user.model');
 const nodemailer = require('nodemailer');
-
-
+const secret = require('../secret/secretFile')
+const twilio = require('twilio');
+const client = new twilio(secret.twilio.accountSID, secret.twilio.authToken);
 
 module.exports = function (_, passport, User, async) {
+
     var smtpTransport = nodemailer.createTransport({
         service: "gmail",
         auth: {
@@ -11,16 +14,22 @@ module.exports = function (_, passport, User, async) {
             pass: "123456789altp"
         }
     });
+
     let randomCode = null;
     randomCode = Math.floor(Math.random() * 1000000);
+
     return {
         SetRouting: function (router) {
-            router.get('/', this.loginEmail);
-           // router.get('/login', this.loginEmail);
+            router.get('/', this.login);
+            router.get('/test', this.loginEmail);
             router.get('/signup', this.getSignUp);
-            router.get('/vetify', this.getPageVetify);
-            // router.get('/vetifyemail', this.getvetifyEmail);
-              router.post('/signup/vetifyemail', this.vetifyEmail);
+            router.get('/signupphone', this.getSignUpPhone);
+            router.get('/verify', this.getPageVetify);
+            //  router.post('/vetify', this.postPageVetify);
+            router.get('/verifycode', this.getPageVetifyCode);
+            router.get('/verifyfinal', this.getPageVetifyFinal);
+            router.get('/vetifyemail', this.verifyEmail);
+            router.get('/vetifyemail/final', this.verifyEmailFinal);
             // router.get('/signupphone', this.getSignUpPhone);
             router.get('/logout', this.logout)
             router.get('/auth/facebook', this.getFacebookLogin);
@@ -29,111 +38,156 @@ module.exports = function (_, passport, User, async) {
             router.get('/auth/google/callback', this.googleLogin);
 
             router.post('/', User.LoginValidation, this.postLogin);
-            router.post('/signup', User.SignUpValidation, this.postSignUp);
-           // router.post('/loginphone', User.LoginValidationPhone, this.postLoginPhone);
-            // router.post('/signupphone', User.SignUpValidationPhone, this.postSignUpPhone);
+            router.post('/signup', this.postSignUp);
+            router.post('/signupphone', this.postSignUpPhone);
         },
-        getPageVetify: function(req, res){
-            return res.render('xacthucemail');
-        }
-        ,
-        // indexPage: function (req, res) {
 
-        //     return res.render('verify');
-        // },
-        loginEmail: function(req, res){
+        getPageVetify: function (req, res) {
             const errors = req.flash('error');
-            return res.render('index',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
-        }
-        ,
-        // loginPhone: function(req, res){
-        //     const errors = req.flash('error');
-        //     return res.render('loginphone',{ title: 'Login', messages: errors, hasErrors: errors.length > 0 });
-        // }
-        // ,
+            return res.render('register', { title: 'Verify', messages: errors, hasErrors: errors.length > 0 });
+        },
+
+        getPageVetifyCode: function (req, res) {
+            let errors = [];
+            user.findOne({phone: req.query.sdt }, ( phone) => {
+    
+                if (phone) {
+                    const errors = req.flash('error', 'User with phone already exist');
+                    return res.render('register',{ messages: errors, hasErrors: errors.length > 0 } );
+                }else{
+                    client.verify.services(secret.twilio.seviceID)
+                    .verifications
+                    .create({
+                        to: `+84${req.query.sdt}`,
+                        channel: "sms",
+                        statusCallback: 'http://localhost:3000/verify'
+                    }).then((data) => {
+                        //res.status(200).send(data);
+                        return res.render('verify', { data: data, sdt: req.query.sdt });
+                    }).catch(function (err) {
+                        // handle error
+                        console.error(err);
+                    });
+                }
+            });
+        },
+
+        getPageVetifyFinal: (req, res) => {
+            const errors = req.flash('error');
+            //console.log(req.query.sdt);
+            client.verify.services(secret.twilio.seviceID)
+                .verificationChecks
+                .create({
+                    to: `+84${req.query.sdt}`,
+                    code: req.query.code
+                }).then((data) => {
+                    return res.render('signupphone', { data: data, sdt: req.query.sdt, messages: errors, hasErrors: errors.length > 0 });
+                })
+        },
+
+        login: function (req, res) {
+            const errors = req.flash('error');
+            return res.render('index', { title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        },
+
+        loginEmail: function (req, res) {
+            const errors = req.flash('error');
+            return res.render('test', { title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        },
+
         postLogin: passport.authenticate('local.login', {
             successRedirect: '/home',
             failureRedirect: '/',
             failureFlash: true
         }),
-        // postLoginPhone: passport.authenticate('local.login.phone', {
-        //     successRedirect: '/home',
-        //     failureRedirect: '/loginphone',
-        //     failureFlash: true
-        // }),
 
         getSignUp: function (req, res) {
             const errors = req.flash('error');
-            return res.render('signup', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0,rand: randomCode });
+            return res.render('signup', { title: ' SignUp', email: req.query.email, messages: errors, hasErrors: errors.length > 0, rand: randomCode });
         },
-        // getSignUpPhone: function (req, res) {
-        //     const errors = req.flash('error');
-        //     return res.render('signupphone', { title: ' SignUp', messages: errors, hasErrors: errors.length > 0 });
-        // },
-        // getvetifyEmail:function(req, res){
-        //     res.render('verifyemail');
 
-        // },
-         vetifyEmail: function(req, res){
-            var userName = req.body.email;
+        getSignUpPhone: function (req, res) {
+            const errors = req.flash('error');
+            return res.render('signupphone', { title: ' SignUp', sdt: req.query.sdt, messages: errors, hasErrors: errors.length > 0, rand: randomCode });
+        },
+
+        verifyEmail: function (req, res) {
+            var userName = req.query.email;
+            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+            console.log(fullUrl);
             console.log(userName);
-            //const show_modal = !!req.body.modal;
-            //var passWord = req.body.password;
             smtpTransport.sendMail(
-              {
-                to:'tuananh.0706999@gmail.com',
-                subject: "Verification",
-                text: "Your is code" + "   " + randomCode
-              },
-              function (err, response) {
-                if (err) {
-                  console.log(err);
-                   
-                    res.end("error");
-                } else {
-                    console.log("Message sent: " + response.message);
-                    res.end("sent");
-                }
-              }
-            );
-           
-        },
-        postSignUp:  passport.authenticate('local.signup', {
-                successRedirect: '/',
-                failureRedirect: '/signup',
-                failureFlash: true
-            }),
-        // postSignUpPhone: passport.authenticate('local.signup.phone', {
-        //     successRedirect: '/loginphone',
-        //     failureRedirect: '/signupphone',
-        //     failureFlash: true
-        // }),
+                {
+                    to: req.query.email,
+                    subject: "Verify",
+                    text: "Your ALTP vetifycation code is: " + " " + randomCode
+                },
+                function (err, response) {
+                    if (err) {
+                        console.log(err);
 
+                        res.end("error");
+                    } else {
+                        // console.log("Message sent: " + response.message);
+                        return res.render('verifyemail', { email: req.query.email });
+                    }
+                }
+            );
+
+        } ,
+
+        verifyEmailFinal: function (req, res) {
+            const errors = req.flash('error');
+            if (req.query.code != randomCode) {
+                var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                console.log(fullUrl);
+                return res.redirect('/vetifyemail?email=' + req.query.email);
+               
+                //return res.render('signup', {  email: req.query.email, messages: errors, hasErrors: errors.length > 0, rand: randomCode });
+            }
+            return res.render('signup', { email: req.query.email, messages: errors, hasErrors: errors.length > 0 });
+
+        },
+
+        postSignUp: passport.authenticate('local.signup', {
+            successRedirect: '/',
+            failureRedirect: '/signup',
+            failureFlash: true
+        }),
+
+        postSignUpPhone: passport.authenticate('local.signup.phone', {
+            successRedirect: '/',
+            failureRedirect: '/signupphone',
+            failureFlash: true
+        }),
 
         getFacebookLogin: passport.authenticate('facebook', {
             scope: 'email'
         }),
+
         facebookLogin: passport.authenticate('facebook', {
-            successRedirect: '/home',
+            successRedirect: '/',
             failureRedirect: '/signup',
             failureFlash: true
         }),
+
         getGoogleLogin: passport.authenticate('google', {
             scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/userinfo.email']
         }),
-        
+
         googleLogin: passport.authenticate('google', {
-            successRedirect: '/home',
+            successRedirect: '/',
             failureRedirect: '/signup',
             failureFlash: true
         }),
-        logout: function(req, res){
+
+        logout: function (req, res) {
             req.logout();
             req.session.destroy((err) => {
-               res.redirect('/');
+                res.redirect('/');
             });
         },
-       
+
     }
 
 }

@@ -1,0 +1,139 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Sign Up | ALTP</title>
+
+
+  <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/signup.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div class="main">
+
+
+    <section class="signup">
+      <div class="container">
+        <div class="signup-content">
+          <div class="signup-form">
+            <h2 class="form-title">Sign up</h2>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" style="width: 150px;" aria-controls="home" aria-selected="true">Phone Number</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"  style="width: 150px;"  aria-controls="profile" aria-selected="false">Email</a>
+              </li>
+              
+            </ul>
+            <div class="tab-content" id="myTabContent" style="margin-top: 30px;">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form action="/verifycode">
+                  <div class="form-group">
+                    <label for="sdt"><i class="zmdi zmdi-phone"></i></label>
+                    <input type="text" name="sdt" id="sdt" placeholder="Your Phone" required maxlength="10" />
+                  </div>
+            
+                  <input type="submit" class="form-submit" value="Continue" />
+              <% if(hasErrors) {%>
+                <div class="alert alert-danger text-center">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <% _.forEach(messages, function(error){ %>
+                  <%= error %><br>
+                  <% }) %>
+                </div>
+                <% } %>
+                 </form>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <form action="/vetifyemail">
+                  <div class="form-group">
+                    <label for="sdt"><i class="zmdi zmdi-email"></i></label>
+                    <input type="email" name="email" id="sdt" placeholder="Your email" required/>
+                  </div>
+            
+                  <input type="submit" class="form-submit" value="Continue" />
+              <% if(hasErrors) {%>
+                <div class="alert alert-danger text-center">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <% _.forEach(messages, function(error){ %>
+                  <%= error %><br>
+                  <% }) %>
+                </div>
+                <% } %>
+                 </form>
+              </div>
+             
+            </div>
+
+          </div>
+          <div class="signup-image">
+            <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+            <div style="display: inline;">
+              <a href="/" class="signup-image-link">You have a account? Login</a>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  </div>
+  <!-- <script>
+  $('#hihihi').hide();
+$('#send_email').on('click',function(){
+  $('#hihi').hide();
+  $('#hihihi').show();
+});
+$('.fa-chevron-left').on('click',function(){
+  $('#hihi').show();
+  $('#hihihi').hide();
+});
+  </script> -->
+ <script>
+    $(document).ready(function () {
+      var from, otp, subject, text;
+      $("#send_email").click(function(e) {
+        e.preventDefault();
+
+
+        //  otp = $("#otp").val();
+        //$("#message").text("Sending E-mail...Please wait");
+        //$.post("http://localhost:3000/signup/vetifyemail", { otp: otp }, function (data) {
+        // if (data == "sent") {
+        // $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
+        //  }
+        // });
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:3000/signup/vetifyemail',
+          data: $(this).serialize(),
+          success: function (response) {
+            //write your code here
+          }
+      })
+    });
+    }); 
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

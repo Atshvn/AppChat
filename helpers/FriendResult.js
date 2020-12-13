@@ -146,7 +146,7 @@ module.exports = function(async, Message){
                             '_id': req.body.chatId
                         },
                         {
-                            'isRead': true
+                            'isReal': true
                         },
                         (err, done) => {
                             callback(err, done);

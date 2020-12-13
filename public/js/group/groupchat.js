@@ -76,4 +76,22 @@ $(document).ready(function(){
            } 
        })
     });
+    $('.chat_area').on('DOMSubtreeModified', function () {
+        $('.chat_area').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
+        });
+    $('.message_write').keypress(function (e) {
+        if (e.which == 13) {
+
+            $('#send-message').click();
+
+
+        }
+    });
+    $('.chat-body').on('click', function(){
+        ($(".time-none").css("display") == "none")?
+            $(".time-none").addClass("time-chat"):
+            $(".time-none").removeClass("time-chat")
+       
+        
+    })
 })

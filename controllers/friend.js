@@ -46,7 +46,7 @@ module.exports = function (async, Group, _, FriendResult, Message) {
                                             { $concat: ["$receiverName", " and ", "$senderName"] }
                                         ]
                                     }
-                                }, "body": { $first: "$$ROOT" }
+                                }, "body": { $last: "$$ROOT" }
                             }
                         }, function(err, newResult){
                             const arr = [

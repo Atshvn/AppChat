@@ -1,12 +1,14 @@
 
 const User = require('../models/user.model');
 
-module.exports = function (async, Group, _, Message, FriendResult) {
+module.exports = function (aws, async, Group, _, Message, FriendResult) {
     return {
         SetRouting: function (router) {
             router.get('/home', this.homePage);
             router.get('/logout', this.logout);
+            router.post('/home/newgroup', this.postGroup);
             router.post('/home', this.postHomePage);
+            router.post('/uploadFile', aws.Upload.any(), this.uploadFile);
             
         },
         homePage: function (req, res) {
@@ -43,7 +45,7 @@ module.exports = function (async, Group, _, Message, FriendResult) {
                                             { $concat: ["$receiverName", " and ", "$senderName"] }
                                         ]
                                     }
-                                }, "body": { $first: "$$ROOT" }
+                                }, "body": { $last: "$$ROOT" }
                             }
                         },function(err, newResult){
                             const arr = [
@@ -70,6 +72,17 @@ module.exports = function (async, Group, _, Message, FriendResult) {
                 res.render('home', { title: 'ALTP | Home', chunks: dataChunk , user: req.user, data: res2, chat: res3});
             })
         },
+        postGroup: function(req, res){
+            const newGroup = new Group();
+            newGroup.name = req.body.group;
+            newGroup.title = req.body.title;
+            newGroup.image = req.body.upload;
+            newGroup.save((err) => {
+
+                res.redirect('/home')
+            })
+        }
+        ,
         postHomePage: function(req, res){
             async.parallel([
                 function(callback){
@@ -102,6 +115,23 @@ module.exports = function (async, Group, _, Message, FriendResult) {
             req.session.destroy((err) => {
                res.redirect('/');
             });
+        },
+        uploadFile: (req, res) => {
+            const form = new formidable.IncomingForm();
+            // form.uploadDir = path.join(__dirname, '../public/uploads');
+            form.on('file', (field, file) => {
+                // fs.rename(file.path, path.join(form.uploadDir, file.name), (err) => {
+                //     if(err) throw err;
+                //     console.log('File renamed')
+                // });            
+            });
+            form.on('error', (err) => {
+                // console.log(err);
+            });
+            form.on('end', () => {
+                //console.log('File Upload Successful');
+            });
+            form.parse(req);
         }
 
     }

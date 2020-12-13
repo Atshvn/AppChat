@@ -337,29 +337,46 @@
                                             <% _.forEach(groupMsg, function(val) { %>
                                             <% if(groupName === val.name) {%>
                                             <li class="left">
-                                                <span class="chat-img1 pull-left">
-                                                    <img src="https://chatappaltp.s3.amazonaws.com/<%= val.sender.userImage %>"
-                                                        class="rounded-circle" alt="">
-                                                </span>
-                                                <div class="chat-body1">
-                                                    <span class="chat-name"><%= val.sender.username %></span>
-                                                    <br>
-                                                    <%= val.body %>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <span class="chat-img1 pull-left">
+                                                            <img src="https://chatappaltp.s3.amazonaws.com/<%= val.sender.userImage %>"
+                                                                class="rounded-circle" alt="">
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-11" style="padding: 0px !important;">
+                                                        <div  class="chat-body"
+                                                        style="padding:8px 20px; background-color: #eee ;width: fit-content; max-width: 400px; border-radius: 30px;">
+                                                            <span class="chat-name" ><%= val.sender.username %></span>
+                                                            <br>
+                                                            <%= val.body %>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                               
+                                             
                                             </li>
                                             <% } %>
                                             <% }) %>
                                         </ul>
                                         <script id="message-template" type="text/template">
                                             <li class="left">
-                                                <span class="chat-img1 pull-left">
-                                                    <img src="https://chatappaltp.s3.amazonaws.com/{{userImage}}" class="rounded-circle " alt="">
-                                                </span>
-                                                <div class="chat-body1">
-                                                    <span class="chat-name">{{ sender }}</span>
-                                                    <br>
-                                                    {{ text }}
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <span class="chat-img1 pull-left">
+                                                            <img src="https://chatappaltp.s3.amazonaws.com/{{userImage}}" class="rounded-circle " alt="">
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-11" style="padding: 0px !important;">
+                                                        <div  class="chat-body"
+                                                        style="padding:8px 20px; background-color: #eee ;width: fit-content; max-width: 400px; border-radius: 30px;">
+                                                            <span class="chat-name" >{{ sender }}</span>
+                                                            <br>
+                                                            {{ text }}
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                               
                                             </li>
                                         </script>
                                     </div>

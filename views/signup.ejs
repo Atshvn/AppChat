@@ -7,11 +7,11 @@
   <title>Sign Up | ALTP</title>
 
 
-  <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/signup.css">
+
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/fonts/material-icon/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="/css/signup.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -32,77 +32,49 @@
                   <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                   <input type="text" name="username" id="name" placeholder="Your Name" />
                 </div>
+
+
+                <input type="hidden" name="email" id="email" placeholder="Your Email" value="<%= email %>" />
+
+
                 <div class="form-group">
-                  <label for="email"><i class="zmdi zmdi-email"></i></label>
-                  <input type="email" name="email" id="email" placeholder="Your Email" />
+                  <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                  <input type="password" name="password" id="password" placeholder="Password" />
                 </div>
                 <div class="form-group">
-                  <label for="phone"><i class="zmdi zmdi-email"></i></label>
-                  <input type="text" name="phone" id=phone" placeholder="Your Phone" />
-                </div>
-                <div class="form-group">
-                  <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                  <input type="password" name="password" id="pass" placeholder="Password" />
-                </div>
-  
+                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                    <input type="password" name="confirm" id="confirm_password" placeholder="Confirm Password" />
+                  </div>
+                  <div>
+                    <span class="alert " id='message'></span>
+                  </div>
+
                 <div class="form-group">
                   <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
                   <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
                     statements in <a href="#" class="term-service">Terms of service</a></label>
                 </div>
                 <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up" />
-                <!-- <button type="button" id="send_email" class="btn btn-primary" data-toggle="modal"
-                  data-target="#exampleModal">Vetify</button> -->
+
               </div>
-               <!-- <div id="hihihi">
-                <i class="fa fa-chevron-left" aria-hidden="true" style="margin-bottom: 20px;"></i>
-                <div class="form-group">
-                  <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                  <input type="text" name="otp" id="otp" placeholder="otp" maxlength="6" />
-                </div>
-                <input type="text" name="cfotp" id="" value="<%= rand %>" >
-                <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up" />
-               </div> -->
-              <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">check inbox email and enter OTP </h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-
-                      <div class="form-group form-button">
-                        <input type="number" name="otp" id="otp" placeholder="enter OTP" maxlength="6">
-                        <input type="submit" name="signup" id="signup" class="form-submit" value="Sign Up" />
-                      </div>
-                    </div>
-
-
-                  </div>
-                </div>
-              </div> -->
 
               <% if(hasErrors) {%>
-              <div class="alert alert-danger text-center">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <% _.forEach(messages, function(error){ %>
-                <%= error %><br>
-                <% }) %>
-              </div>
-              <% } %>
-              <span id="message"></span>
+                <div class="alert alert-danger text-center">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <% _.forEach(messages, function(error){ %>
+                    <%= error %><br>
+                      <% }) %>
+                </div>
+                <% } %>
+                  <span id="message"></span>
 
             </form>
           </div>
           <div class="signup-image">
-            <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+            <figure><img src="/images/signup-image.jpg" alt="sing up image"></figure>
             <div style="display: inline;">
               <a href="/" class="signup-image-link">You have a account? Login</a>
-            
+
             </div>
           </div>
         </div>
@@ -112,50 +84,20 @@
 
 
   </div>
-  <!-- <script>
-  $('#hihihi').hide();
-$('#send_email').on('click',function(){
-  $('#hihi').hide();
-  $('#hihihi').show();
-});
-$('.fa-chevron-left').on('click',function(){
-  $('#hihi').show();
-  $('#hihihi').hide();
-});
-  </script> -->
- <script>
-    $(document).ready(function () {
-      var from, otp, subject, text;
-      $("#send_email").click(function(e) {
-        e.preventDefault();
 
-
-        //  otp = $("#otp").val();
-        //$("#message").text("Sending E-mail...Please wait");
-        //$.post("http://localhost:3000/signup/vetifyemail", { otp: otp }, function (data) {
-        // if (data == "sent") {
-        // $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
-        //  }
-        // });
-        $.ajax({
-          type: 'POST',
-          url: 'http://localhost:3000/signup/vetifyemail',
-          data: $(this).serialize(),
-          success: function (response) {
-            //write your code here
-          }
-      })
-    });
-    }); 
+  <script>
+  $(' #confirm_password').on('keyup', function () {
+    if ($('#password').val() == $('#confirm_password').val()) {
+        $('#message').html('').css('color', 'green');
+       
+    } else 
+        $('#message').html('Confirm password not match').css('color', 'red');
+}); 
   </script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
 
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
 </body>
 
 </html>
