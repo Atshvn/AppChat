@@ -2,7 +2,7 @@
 // const path = require('path');
 // const fs = require('fs');
 const User = require('../models/user.model');
-module.exports = function (aws, formidable, Group, async) {
+module.exports = function (aws, formidable, Group, async, _, passport) {
 
     return {
         SetRouting: function (router) {
@@ -10,14 +10,25 @@ module.exports = function (aws, formidable, Group, async) {
             router.get('/member', this.getAllUser);
             router.get('/member/:id', this.deleteUser);
             router.get('/detailprofile', this.detailProfile);
-
+            router.get('/admin', this.loginAdmin);
+            router.post('/admin', this.postLoginAdmin);
             router.post('/uploadFile', aws.Upload.any(), this.uploadFile); //
             router.post('/dashboard', this.adminPostPage);
             router.post('/postUser', this.postUser);
 
         },
+        loginAdmin: function (req, res) {
+            const errors = req.flash('error');
+            return res.render('admin/login', { user: req.user,title: 'Login', messages: errors, hasErrors: errors.length > 0 });
+        },
+
+        postLoginAdmin: passport.authenticate('local.login.admin', {
+            successRedirect: '/dashboard',
+            failureRedirect: '/admin',
+            failureFlash: true
+        }),
         adminPage: function (req, res) {
-            res.render('admin/dashboard');
+            res.render('admin/dashboard',{ title: 'Dashboard | ALTP', user: req.user });
         },
         detailProfile:  function (req, res) {
             res.render('detailprofile',  { title: 'Profile | ALTP', user: req.user });

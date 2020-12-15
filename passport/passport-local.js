@@ -90,25 +90,27 @@ passport.use('local.login', new LocalStrategy({
         return done(null, user);
     });
 }));
-// passport.use('local.login.phone', new LocalStrategy({
-//     usernameField: 'phone',
-//     passwordField: 'password',
-//     passReqToCallback: true
-// }, (req, phone, password, done) => {
 
-//     User.findOne({ 'phone': phone }, (err, user) => {
-//         if (err) {
-//             return done(err);
-//         }
 
-//         const messages = [];
-//         if (!user || !user.validUserPassword(password)) {
-//             messages.push('Phone Does Not Exist or Password is Invalid');
-//             return done(null, false, req.flash('error', messages));
-//         }
-//         return done(null, user);
-//     });
-// }));
+passport.use('local.login.admin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, (req, email, password, done) => {
+
+    User.findOne({ 'username': email }, (err, user) => {
+        if (err) {
+            return done(err);
+        }
+
+        const messages = [];
+        if (!user || !user.validUserPassword(password)) {
+            messages.push('Name Does Not Exist or Password is Invalid');
+            return done(null, false, req.flash('error', messages));
+        }
+        return done(null, user);
+    });
+}));
 
 
 

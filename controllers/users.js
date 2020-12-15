@@ -38,7 +38,7 @@ module.exports = function (_, passport, User, async) {
             router.get('/auth/google/callback', this.googleLogin);
 
             router.post('/', User.LoginValidation, this.postLogin);
-            router.post('/signup', this.postSignUp);
+            router.post('/signup', User.SignUpValidation, this.postSignUp);
             router.post('/signupphone', this.postSignUpPhone);
         },
 
@@ -48,8 +48,8 @@ module.exports = function (_, passport, User, async) {
         },
 
         getPageVetifyCode: function (req, res) {
-            let errors = [];
-            user.findOne({phone: req.query.sdt }, ( phone) => {
+           
+            user.findOne({phone: req.query.sdt }, (phone) => {
     
                 if (phone) {
                     const errors = req.flash('error', 'User with phone already exist');
@@ -74,7 +74,6 @@ module.exports = function (_, passport, User, async) {
 
         getPageVetifyFinal: (req, res) => {
             const errors = req.flash('error');
-            //console.log(req.query.sdt);
             client.verify.services(secret.twilio.seviceID)
                 .verificationChecks
                 .create({
