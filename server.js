@@ -16,6 +16,7 @@ const {Users} = require('./helpers/UsersClass');
 const {Global} = require('./helpers/Global');
 const twilio = require('twilio');
 
+
 const container = require('./container');
 container.resolve(function (users, _, admin, home, profile, group, results, friend, privatechat) {
     mongoose.Promise = global.Promise;
@@ -47,6 +48,9 @@ container.resolve(function (users, _, admin, home, profile, group, results, frie
         results.SetRouting(router);
         friend.SetRouting(router);
         privatechat.SetRouting(router);
+   
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
         app.use(router);
 
         app.use(function(req, res){
@@ -65,8 +69,7 @@ container.resolve(function (users, _, admin, home, profile, group, results, frie
         app.use(cookieParser());
         app.set('view engine', 'ejs');
         app.set('views', path.join(__dirname, 'views'));
-        app.use(bodyParser.json());
-        app.use(bodyParser.urlencoded({ extended: false }));
+       
 
         app.use(validator());
 

@@ -3,6 +3,7 @@ const user = require('../models/user.model');
 const nodemailer = require('nodemailer');
 const secret = require('../secret/secretFile')
 const twilio = require('twilio');
+
 const client = new twilio(secret.twilio.accountSID, secret.twilio.authToken);
 
 module.exports = function (_, passport, User, async) {
@@ -29,7 +30,7 @@ module.exports = function (_, passport, User, async) {
             router.get('/verifycode', this.getPageVetifyCode);
             router.get('/verifyfinal', this.getPageVetifyFinal);
             router.get('/vetifyemail', this.verifyEmail);
-            router.get('/vetifyemail/final', this.verifyEmailFinal);
+            router.get('/vetifyemail/final/', this.verifyEmailFinal);
             // router.get('/signupphone', this.getSignUpPhone);
             router.get('/logout', this.logout)
             router.get('/auth/facebook', this.getFacebookLogin);
@@ -49,12 +50,16 @@ module.exports = function (_, passport, User, async) {
 
         getPageVetifyCode: function (req, res) {
            
-            user.findOne({phone: req.query.sdt }, (phone) => {
-    
-                if (phone) {
-                    const errors = req.flash('error', 'User with phone already exist');
+            user.findOne({phone: req.query.sdt }, (err ,user) => {
+                
+                if (user) {
+                    const errors = [];
+                    errors.push('User with phone already exist');
+                    // const errors = req.flash('error', 'User with phone already exist');
+                    // console.log(errors);
                     return res.render('register',{ messages: errors, hasErrors: errors.length > 0 } );
-                }else{
+                }
+
                     client.verify.services(secret.twilio.seviceID)
                     .verifications
                     .create({
@@ -68,7 +73,7 @@ module.exports = function (_, passport, User, async) {
                         // handle error
                         console.error(err);
                     });
-                }
+                
             });
         },
 
@@ -111,27 +116,35 @@ module.exports = function (_, passport, User, async) {
         },
 
         verifyEmail: function (req, res) {
-            var userName = req.query.email;
-            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-            console.log(fullUrl);
-            console.log(userName);
-            smtpTransport.sendMail(
-                {
-                    to: req.query.email,
-                    subject: "Verify",
-                    text: "Your ALTP vetifycation code is: " + " " + randomCode
-                },
-                function (err, response) {
-                    if (err) {
-                        console.log(err);
+            user.findOne({"email": req.query.email }, (err, email) => {
+               if(email){
+                const errors = [];
+                errors.push('User with email already exist');
 
-                        res.end("error");
-                    } else {
-                        // console.log("Message sent: " + response.message);
-                        return res.render('verifyemail', { email: req.query.email });
+                return res.render('register',{ messages: errors, hasErrors: errors.length > 0 } );
+               }
+                var userName = req.query.email;
+                var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+
+                smtpTransport.sendMail(
+                    {
+                        to: req.query.email,
+                        subject: "Verify",
+                        text: "Your ALTP vetifycation code is: " + " " + randomCode
+                    },
+                    function (err, response) {
+                        if (err) {
+                            console.log(err);
+    
+                            res.end("error");
+                        } else {
+                            // console.log("Message sent: " + response.message);
+                            return res.render('verifyemail', { email: req.query.email });
+                        }
                     }
-                }
-            );
+                );
+            });
+            
 
         } ,
 
@@ -139,12 +152,12 @@ module.exports = function (_, passport, User, async) {
             const errors = req.flash('error');
             if (req.query.code != randomCode) {
                 var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                console.log(fullUrl);
+                //console.log(fullUrl);
                 return res.redirect('/vetifyemail?email=' + req.query.email);
                
                 //return res.render('signup', {  email: req.query.email, messages: errors, hasErrors: errors.length > 0, rand: randomCode });
             }
-            return res.render('signup', { email: req.query.email, messages: errors, hasErrors: errors.length > 0 });
+            return res.render('signup', { email: req.query.email,code:req.query.code, messages: errors, hasErrors: errors.length > 0 });
 
         },
 

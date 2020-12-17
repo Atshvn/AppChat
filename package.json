@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Atshvn/AppChat#readme",
   "dependencies": {
+    "alertifyjs": "^1.13.1",
     "async": "^3.2.0",
     "aws-sdk": "^2.769.0",
     "bcrypt-nodejs": "0.0.3",

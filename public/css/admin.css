@@ -43,7 +43,8 @@ body {
 
 .card {
     background: none repeat scroll 0 0 #FFFFFF;
-    border-radius: 4px;
+    border-radius: 5px;
+    width: 250px !important;
     color: #444444;
 }
 

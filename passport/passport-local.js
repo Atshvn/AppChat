@@ -98,14 +98,14 @@ passport.use('local.login.admin', new LocalStrategy({
     passReqToCallback: true
 }, (req, email, password, done) => {
 
-    User.findOne({ 'username': email }, (err, user) => {
+    User.findOne({ 'username': 'admin' }, (err, user) => {
         if (err) {
             return done(err);
         }
 
         const messages = [];
         if (!user || !user.validUserPassword(password)) {
-            messages.push('Name Does Not Exist or Password is Invalid');
+            messages.push('Access denied for user');
             return done(null, false, req.flash('error', messages));
         }
         return done(null, user);

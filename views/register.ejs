@@ -10,9 +10,26 @@
   <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="css/signup.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  <script>
+    $(document).ready(function () {
+      // show when page load
+      // toastr.info('Page Loaded!');
+
+      $('.sub').click(function () {
+        // show when the button is clicked
+        if($('#hihi').length){
+          toastr.error('User already exist');
+            }
+      });
+
+    });
+
+  </script>
 </head>
 
 <body>
@@ -28,12 +45,14 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" style="width: 150px;" aria-controls="home" aria-selected="true">Phone Number</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" style="width: 150px;"
+                  aria-controls="home" aria-selected="true">Phone Number</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"  style="width: 150px;"  aria-controls="profile" aria-selected="false">Email</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" style="width: 150px;"
+                  aria-controls="profile" aria-selected="false">Email</a>
               </li>
-              
+
             </ul>
             <div class="tab-content" id="myTabContent" style="margin-top: 30px;">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -42,45 +61,40 @@
                     <label for="sdt"><i class="zmdi zmdi-phone"></i></label>
                     <input type="text" name="sdt" id="sdt" placeholder="Your Phone" required maxlength="10" />
                   </div>
-            
-                  <input type="submit" class="form-submit" value="Continue" />
-              <% if(hasErrors) {%>
-                <div class="alert alert-danger text-center">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <% _.forEach(messages, function(error){ %>
-                  <%= error %><br>
-                  <% }) %>
-                </div>
-                <% } %>
-                 </form>
+
+                  <input type="submit" class="form-submit sub"  value="Continue" />
+
+                </form>
               </div>
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <form action="/vetifyemail">
                   <div class="form-group">
                     <label for="sdt"><i class="zmdi zmdi-email"></i></label>
-                    <input type="email" name="email" id="sdt" placeholder="Your email" required/>
+                    <input type="email" name="email" id="sdt" placeholder="Your email" required />
                   </div>
-            
-                  <input type="submit" class="form-submit" value="Continue" />
-              <% if(hasErrors) {%>
-                <div class="alert alert-danger text-center">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <% _.forEach(messages, function(error){ %>
-                  <%= error %><br>
-                  <% }) %>
-                </div>
-                <% } %>
-                 </form>
+
+                  <input type="submit" class="form-submit sub"  value="Continue" />
+
+                </form>
               </div>
-             
+
             </div>
+            <% if(hasErrors) {%>
+              <div id="hihi"></div>
+              <div class="alert alert-danger text-center">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <% _.forEach(messages, function(error){ %>
+                  <%= error %><br>
+                    <% }) %>
+              </div>
+              <% } %>
 
           </div>
           <div class="signup-image">
             <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
             <div style="display: inline;">
               <a href="/" class="signup-image-link">You have a account? Login</a>
-            
+
             </div>
           </div>
         </div>
@@ -90,31 +104,11 @@
 
 
   </div>
-  <!-- <script>
-  $('#hihihi').hide();
-$('#send_email').on('click',function(){
-  $('#hihi').hide();
-  $('#hihihi').show();
-});
-$('.fa-chevron-left').on('click',function(){
-  $('#hihi').show();
-  $('#hihihi').hide();
-});
-  </script> -->
- <script>
+  <script>
     $(document).ready(function () {
       var from, otp, subject, text;
-      $("#send_email").click(function(e) {
+      $("#send_email").click(function (e) {
         e.preventDefault();
-
-
-        //  otp = $("#otp").val();
-        //$("#message").text("Sending E-mail...Please wait");
-        //$.post("http://localhost:3000/signup/vetifyemail", { otp: otp }, function (data) {
-        // if (data == "sent") {
-        // $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
-        //  }
-        // });
         $.ajax({
           type: 'POST',
           url: 'http://localhost:3000/signup/vetifyemail',
@@ -122,8 +116,8 @@ $('.fa-chevron-left').on('click',function(){
           success: function (response) {
             //write your code here
           }
-      })
-    });
+        })
+      });
     }); 
   </script>
 
