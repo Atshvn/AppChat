@@ -150,9 +150,11 @@ module.exports = function (_, passport, User, async) {
 
         verifyEmailFinal: function (req, res) {
             const errors = req.flash('error');
+            console.log(req.query.email);
             if (req.query.code != randomCode) {
                 var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
                 //console.log(fullUrl);
+                
                 return res.redirect('/vetifyemail?email=' + req.query.email);
                
                 //return res.render('signup', {  email: req.query.email, messages: errors, hasErrors: errors.length > 0, rand: randomCode });
