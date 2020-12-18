@@ -59,7 +59,6 @@ passport.use('local.signup.phone', new LocalStrategy({
         const newUserr = new User();
         newUserr.username = req.body.username;
         newUserr.fullname = req.body.username;
-       // newUserr.email = req.body.email;
         newUserr.phone = req.body.phone;
         newUserr.password = newUserr.encryptPassword(req.body.password);
 

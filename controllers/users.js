@@ -11,13 +11,10 @@ module.exports = function (_, passport, User, async) {
     var smtpTransport = nodemailer.createTransport({
         host: "smtp.gmail.com",
         secureConnection: false,
-        port: 587,
-        requiresAuth: true,
-        domains: ["gmail.com", "googlemail.com"],
         service: "gmail",
         auth: {
             user: "altp.appchat@gmail.com",
-            pass: "123456789altp"
+            pass: "0971718434altp"
         }
     });
 

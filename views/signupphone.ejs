@@ -93,47 +93,16 @@
 
 
   </div>
-  <!-- <script>
-  $('#hihihi').hide();
-$('#send_email').on('click',function(){
-  $('#hihi').hide();
-  $('#hihihi').show();
-});
-$('.fa-chevron-left').on('click',function(){
-  $('#hihi').show();
-  $('#hihihi').hide();
-});
-  </script> -->
  <script>
     $(document).ready(function () {
-      var from, otp, subject, text;
-      $("#send_email").click(function(e) {
-        e.preventDefault();
-
-
-        //  otp = $("#otp").val();
-        //$("#message").text("Sending E-mail...Please wait");
-        //$.post("http://localhost:3000/signup/vetifyemail", { otp: otp }, function (data) {
-        // if (data == "sent") {
-        // $("#message").empty().html("<p>Email is been sent at "+to+" . Please check inbox !</p>");
-        //  }
-        // });
-        $.ajax({
-          type: 'POST',
-          url: 'http://localhost:3000/signup/vetifyemail',
-          data: $(this).serialize(),
-          success: function (response) {
-            //write your code here
-          }
-      })
-    });
-    });
-    $(' #confirm_password').on('keyup', function () {
+      $(' #confirm_password').on('keyup', function () {
     if ($('#password').val() == $('#confirm_password').val()) {
         $('#message').html('').css('color', 'green');
        
     } else 
         $('#message').html('Confirm password not match').css('color', 'red');
+    });
+  
 }); 
   </script>
 
