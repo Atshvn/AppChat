@@ -31,7 +31,6 @@ module.exports = function(){
         SignUpValidationadmin: (req, res, next) => {
             req.checkBody('username', 'Username is Required').notEmpty();
             req.checkBody('username', 'Username Must Not Be Less Than 5').isLength({min: 5});
-            req.checkBody('email', 'Email is Required').notEmpty();
             req.checkBody('email', 'Email is Invalid').isEmail();
                 req.checkBody('phone', 'Phone is Invalid').isLength({ max:10});
             req.checkBody('password', 'Password is Required').notEmpty();

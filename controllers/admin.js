@@ -101,26 +101,10 @@ module.exports = function (aws, formidable, Group, async, _, passport, User) {
                 newUserr.password = newUserr.encryptPassword(req.body.password);
         
                 newUserr.save((err) => {
-                    res.jsonp({success : true})
                     res.redirect('/dashboard');
                 });
               
             });
-            // var user = new User({
-            //     username: req.body.username,
-            //     fullname: req.body.username,
-            //     email: req.body.email,
-            //     password: req.body.password,
-            //     phone: req.body.phone,
-            //     userImage: 'defaultPic.png',
-
-            // });
-            // // result = User.addUser(user);
-            // user.save().then((user) => {
-            //     res.send(user);
-            // }, (e) => {
-            //     res.status(400).send(e);
-            // });
         },
         deleteUser: function (req, res) {
             user.findOneAndRemove({
